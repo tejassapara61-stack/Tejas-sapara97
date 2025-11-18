@@ -1,12 +1,33 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import TechStack from "@/components/TechStack";
+import Projects from "@/components/Projects";
+import Services from "@/components/Services";
+import Contact from "@/components/Contact";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen">
+      <Hero />
+      <About />
+      <TechStack />
+      <Projects />
+      <Services />
+      <Contact />
+      
+      {/* Footer */}
+      <footer className="py-8 border-t border-border">
+        <div className="container mx-auto px-4">
+          <div className="text-center text-muted-foreground">
+            <p className="mb-2">
+              © 2025 Tejas Sapara. All rights reserved.
+            </p>
+            <p className="text-sm">
+              Built with React, Tailwind CSS, and ❤️
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
