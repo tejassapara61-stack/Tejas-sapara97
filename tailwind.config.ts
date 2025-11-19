@@ -50,6 +50,7 @@ export default {
         "tech-blue": "hsl(var(--tech-blue))",
         "tech-cyan": "hsl(var(--tech-cyan))",
         "tech-purple": "hsl(var(--tech-purple))",
+        "n8n-pink": "hsl(var(--n8n-pink))",
       },
       borderRadius: {
         lg: "var(--radius)",

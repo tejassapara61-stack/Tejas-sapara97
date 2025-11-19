@@ -31,9 +31,9 @@ const TechStack = () => {
     },
     {
       title: "Automation & Workflows",
-      logo: "https://avatars.githubusercontent.com/u/31465727?s=200&v=4",
+      logo: "https://n8n.io/favicon.ico",
       techs: [
-        { name: "n8n", logo: "https://avatars.githubusercontent.com/u/31465727?s=200&v=4" },
+        { name: "n8n", logo: "https://n8n.io/favicon.ico" },
         { name: "Zapier", logo: "https://www.vectorlogo.zone/logos/zapier/zapier-icon.svg" }
       ]
     },
@@ -126,7 +126,7 @@ const TechStack = () => {
                 { name: "Python (Data Science)", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" },
                 { name: "AI Agents", logo: "https://www.vectorlogo.zone/logos/openai/openai-icon.svg" },
                 { name: "React", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" },
-                { name: "n8n", logo: "https://avatars.githubusercontent.com/u/31465727?s=200&v=4" },
+                { name: "n8n", logo: "https://n8n.io/favicon.ico" },
                 { name: "RAG Systems", logo: "https://cdn.worldvectorlogo.com/logos/langchain.svg" },
                 { name: "Firebase", logo: "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" },
                 { name: "Supabase", logo: "https://www.vectorlogo.zone/logos/supabase/supabase-icon.svg" },
