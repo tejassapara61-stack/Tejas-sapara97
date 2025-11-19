@@ -8,6 +8,52 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 189 85% 55%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 20% 40%;
+
+    --accent: 280 70% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 217 91% 60%;
+
+    --radius: 0.75rem;
+
+    /* Custom portfolio colors */
+    --tech-blue: 217 91% 60%;
+    --tech-cyan: 189 85% 55%;
+    --tech-purple: 280 70% 60%;
+    --n8n-pink: 347 76% 59%;
+    --gradient-start: 217 91% 60%;
+    --gradient-end: 280 70% 60%;
+    --glow: 217 91% 60%;
+
+    /* Shadows and effects */
+    --shadow-glow: 0 0 40px hsl(var(--glow) / 0.3);
+    --shadow-card: 0 10px 30px -10px hsl(0 0% 0% / 0.1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
     --background: 222 47% 11%;
     --foreground: 210 40% 98%;
 
@@ -36,20 +82,9 @@ All colors MUST be HSL.
     --input: 217 33% 25%;
     --ring: 217 91% 60%;
 
-    --radius: 0.75rem;
-
-    /* Custom portfolio colors */
-    --tech-blue: 217 91% 60%;
-    --tech-cyan: 189 85% 55%;
-    --tech-purple: 280 70% 60%;
-    --gradient-start: 217 91% 60%;
-    --gradient-end: 280 70% 60%;
-    --glow: 217 91% 60%;
-
     /* Shadows and effects */
     --shadow-glow: 0 0 40px hsl(var(--glow) / 0.3);
     --shadow-card: 0 10px 30px -10px hsl(0 0% 0% / 0.5);
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
