@@ -1,5 +1,13 @@
 import { useState } from "react";
 import aiAgentIcon from "@/assets/ai-agent-icon.png";
+import webhookIcon from "@/assets/nodes/webhook.svg";
+import httpRequestIcon from "@/assets/nodes/httprequest.svg";
+import gmailIcon from "@/assets/nodes/gmail.svg";
+import slackIcon from "@/assets/nodes/slack.svg";
+import postgresIcon from "@/assets/nodes/postgres.svg";
+import codeIcon from "@/assets/nodes/code.svg";
+import mergeIcon from "@/assets/nodes/merge.svg";
+import googleSheetsIcon from "@/assets/nodes/googleSheets.svg";
 
 const WorkflowDemo = () => {
   const [activeWorkflow, setActiveWorkflow] = useState("rag");
@@ -8,38 +16,40 @@ const WorkflowDemo = () => {
     rag: {
       title: "RAG System",
       nodes: [
-        { id: 1, label: "User Query", type: "trigger", color: "from-tech-blue to-tech-cyan" },
-        { id: 2, label: "Vector Search", type: "process", color: "from-tech-cyan to-tech-purple" },
-        { id: 3, label: "AI Agent", type: "ai", color: "from-tech-purple to-n8n-pink" },
-        { id: 4, label: "Response", type: "output", color: "from-n8n-pink to-tech-blue" }
+        { id: 1, label: "Webhook", type: "trigger", icon: webhookIcon },
+        { id: 2, label: "HTTP Request", type: "process", icon: httpRequestIcon },
+        { id: 3, label: "AI Agent", type: "ai", icon: aiAgentIcon },
+        { id: 4, label: "Code", type: "process", icon: codeIcon },
+        { id: 5, label: "Postgres", type: "output", icon: postgresIcon }
       ]
     },
     whatsapp: {
       title: "WhatsApp Bot",
       nodes: [
-        { id: 1, label: "WhatsApp Webhook", type: "trigger", color: "from-green-500 to-green-600" },
-        { id: 2, label: "Parse Message", type: "process", color: "from-tech-cyan to-tech-purple" },
-        { id: 3, label: "AI Processing", type: "ai", color: "from-tech-purple to-n8n-pink" },
-        { id: 4, label: "Send Reply", type: "output", color: "from-n8n-pink to-green-500" }
+        { id: 1, label: "Webhook", type: "trigger", icon: webhookIcon },
+        { id: 2, label: "Code", type: "process", icon: codeIcon },
+        { id: 3, label: "AI Agent", type: "ai", icon: aiAgentIcon },
+        { id: 4, label: "HTTP Request", type: "process", icon: httpRequestIcon },
+        { id: 5, label: "Google Sheets", type: "output", icon: googleSheetsIcon }
       ]
     },
     telegram: {
       title: "Telegram Bot",
       nodes: [
-        { id: 1, label: "Telegram Trigger", type: "trigger", color: "from-blue-500 to-blue-600" },
-        { id: 2, label: "Command Router", type: "process", color: "from-tech-cyan to-tech-purple" },
-        { id: 3, label: "AI Agent", type: "ai", color: "from-tech-purple to-n8n-pink" },
-        { id: 4, label: "Telegram Reply", type: "output", color: "from-n8n-pink to-blue-500" }
+        { id: 1, label: "Webhook", type: "trigger", icon: webhookIcon },
+        { id: 2, label: "Merge", type: "process", icon: mergeIcon },
+        { id: 3, label: "AI Agent", type: "ai", icon: aiAgentIcon },
+        { id: 4, label: "Slack", type: "output", icon: slackIcon }
       ]
     },
     saas: {
       title: "SaaS AI Agent",
       nodes: [
-        { id: 1, label: "API Request", type: "trigger", color: "from-tech-blue to-tech-cyan" },
-        { id: 2, label: "Auth & Validate", type: "process", color: "from-tech-cyan to-tech-purple" },
-        { id: 3, label: "Multi-Agent AI", type: "ai", color: "from-tech-purple to-n8n-pink" },
-        { id: 4, label: "Database Save", type: "process", color: "from-n8n-pink to-tech-cyan" },
-        { id: 5, label: "API Response", type: "output", color: "from-tech-cyan to-tech-blue" }
+        { id: 1, label: "HTTP Request", type: "trigger", icon: httpRequestIcon },
+        { id: 2, label: "Code", type: "process", icon: codeIcon },
+        { id: 3, label: "AI Agent", type: "ai", icon: aiAgentIcon },
+        { id: 4, label: "Postgres", type: "process", icon: postgresIcon },
+        { id: 5, label: "Gmail", type: "output", icon: gmailIcon }
       ]
     }
   };
@@ -86,63 +96,86 @@ const WorkflowDemo = () => {
               </h3>
 
               {/* Nodes Flow */}
-              <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-6">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-4">
                 {currentWorkflow.nodes.map((node, index) => (
                   <div key={node.id} className="flex flex-col md:flex-row items-center gap-4">
                     {/* Node */}
                     <div className="relative group">
-                      <div className={`absolute inset-0 bg-gradient-to-r ${node.color} rounded-lg blur-lg opacity-50 group-hover:opacity-75 transition-opacity`}></div>
-                      <div className="relative bg-card border-2 border-border rounded-lg p-6 min-w-[160px] hover:scale-110 transition-all cursor-pointer">
-                        <div className="flex flex-col items-center gap-3">
-                          {node.type === "ai" ? (
-                            <img src={aiAgentIcon} alt="AI Agent" className="w-12 h-12 animate-pulse" />
-                          ) : (
-                            <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${node.color} flex items-center justify-center text-white font-bold`}>
-                              {node.id}
-                            </div>
-                          )}
-                          <span className="font-semibold text-sm text-center">{node.label}</span>
+                      {/* Glow effect */}
+                      <div className="absolute inset-0 bg-primary/20 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      
+                      {/* Node card */}
+                      <div className="relative bg-card border border-border rounded-xl p-4 min-w-[140px] hover:scale-105 hover:border-primary/50 transition-all duration-300 cursor-pointer shadow-lg">
+                        <div className="flex flex-col items-center gap-2">
+                          {/* Icon container with background */}
+                          <div className="w-14 h-14 rounded-lg bg-muted/50 flex items-center justify-center p-2">
+                            <img 
+                              src={node.icon} 
+                              alt={node.label} 
+                              className={`w-10 h-10 object-contain ${node.type === 'ai' ? 'animate-pulse' : ''}`}
+                            />
+                          </div>
+                          <span className="font-medium text-xs text-center text-foreground">{node.label}</span>
                         </div>
                         
-                        {/* Pulse Animation */}
-                        <div className="absolute inset-0 rounded-lg animate-pulse">
-                          <div className={`absolute inset-0 rounded-lg bg-gradient-to-r ${node.color} opacity-0 group-hover:opacity-20 transition-opacity`}></div>
-                        </div>
+                        {/* Connection dots */}
+                        {index < currentWorkflow.nodes.length - 1 && (
+                          <>
+                            <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                          </>
+                        )}
+                        {index > 0 && (
+                          <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary"></div>
+                        )}
                       </div>
                     </div>
 
-                    {/* Arrow */}
+                    {/* Connection line */}
                     {index < currentWorkflow.nodes.length - 1 && (
                       <div className="hidden md:block">
-                        <svg width="40" height="20" viewBox="0 0 40 20" className="text-primary">
-                          <defs>
-                            <linearGradient id={`gradient-${index}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                              <stop offset="0%" stopColor="currentColor" stopOpacity="0.5" />
-                              <stop offset="100%" stopColor="currentColor" stopOpacity="1" />
-                            </linearGradient>
-                          </defs>
-                          <path
-                            d="M 0 10 L 30 10 L 25 5 M 30 10 L 25 15"
-                            stroke={`url(#gradient-${index})`}
+                        <svg width="32" height="2" viewBox="0 0 32 2" className="text-border">
+                          <line 
+                            x1="0" 
+                            y1="1" 
+                            x2="32" 
+                            y2="1" 
+                            stroke="currentColor" 
                             strokeWidth="2"
-                            fill="none"
-                            className="animate-pulse"
-                          />
+                            strokeDasharray="4 4"
+                          >
+                            <animate 
+                              attributeName="stroke-dashoffset" 
+                              from="8" 
+                              to="0" 
+                              dur="0.5s" 
+                              repeatCount="indefinite"
+                            />
+                          </line>
                         </svg>
                       </div>
                     )}
                     
-                    {/* Vertical Arrow for mobile */}
+                    {/* Vertical connection for mobile */}
                     {index < currentWorkflow.nodes.length - 1 && (
                       <div className="md:hidden">
-                        <svg width="20" height="40" viewBox="0 0 20 40" className="text-primary">
-                          <path
-                            d="M 10 0 L 10 30 L 5 25 M 10 30 L 15 25"
-                            stroke="currentColor"
+                        <svg width="2" height="32" viewBox="0 0 2 32" className="text-border">
+                          <line 
+                            x1="1" 
+                            y1="0" 
+                            x2="1" 
+                            y2="32" 
+                            stroke="currentColor" 
                             strokeWidth="2"
-                            fill="none"
-                            className="animate-pulse"
-                          />
+                            strokeDasharray="4 4"
+                          >
+                            <animate 
+                              attributeName="stroke-dashoffset" 
+                              from="8" 
+                              to="0" 
+                              dur="0.5s" 
+                              repeatCount="indefinite"
+                            />
+                          </line>
                         </svg>
                       </div>
                     )}
