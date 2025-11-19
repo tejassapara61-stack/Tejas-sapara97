@@ -17,26 +17,26 @@ const Services = () => {
     },
     {
       icon: Workflow,
-      title: "n8n Automation",
-      description: "Complex workflow automation, API integrations, and process optimization",
+      title: "WhatsApp & Telegram Bots",
+      description: "Intelligent chatbots for WhatsApp and Telegram with AI-powered conversations",
       features: [
-        "Workflow design & optimization",
-        "API integration & orchestration",
-        "Process automation",
-        "Custom node development",
-        "Enterprise automation solutions"
+        "WhatsApp Business API integration",
+        "Telegram bot development",
+        "AI-powered conversations",
+        "Automated customer support",
+        "Multi-language support"
       ]
     },
     {
       icon: Code,
-      title: "SaaS Development",
-      description: "Full-stack web applications with modern frameworks and cloud services",
+      title: "SaaS with AI Agents",
+      description: "Full-stack SaaS applications powered by intelligent AI agents",
       features: [
         "React-based web applications",
         "Firebase/Supabase backend",
-        "RESTful API development",
-        "Database design & optimization",
-        "Cloud deployment & scaling"
+        "AI agent integration",
+        "Automated workflows",
+        "Scalable cloud infrastructure"
       ]
     }
   ];
