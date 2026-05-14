@@ -1,162 +1,143 @@
-import ragIcon from "@/assets/nodes/rag.svg";
+import { Brain, Workflow, Code2, Zap, Sparkles, Monitor, MessageSquare, Palette } from 'lucide-react';
+import React from 'react';
+import { motion, Variants } from 'framer-motion';
+
+const containerV: Variants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+};
+const itemV: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const bentoCards: {
+  id: string; title: string; description: string; icon: any; accentColor: string;
+  size: "large" | "wide" | "normal";
+  techLogos: { name: string; logo: string | React.ReactNode; invertInDark?: boolean }[];
+}[] = [
+  {
+    id: "ai-agents", title: "AI & Agents",
+    description: "Building multi-agent systems, RAG architectures, and agentic pipelines that think, decide, and act autonomously — powering real products.",
+    icon: Brain, accentColor: "purple", size: "large",
+    techLogos: [
+      { name: "n8n", logo: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/n8n-color.svg" },
+      { name: "Make.com", logo: "https://api.iconify.design/simple-icons/make.svg?color=%236C4AB6" },
+      { name: "OpenAI API", logo: "https://api.iconify.design/simple-icons/openai.svg", invertInDark: true },
+      { name: "Gemini Vision", logo: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/gemini-color.svg" },
+      { name: "Claude Code", logo: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claude-color.svg" },
+      { name: "RAG", logo: "https://api.iconify.design/simple-icons/openai.svg", invertInDark: true },
+    ],
+  },
+  {
+    id: "rapid-dev", title: "Rapid Dev / Vibe Coding",
+    description: "AI-assisted development for blazing-fast MVP deployment. Concept to production in days, not months.",
+    icon: Zap, accentColor: "emerald", size: "wide",
+    techLogos: [
+      { name: "Cursor IDE", logo: "https://api.iconify.design/simple-icons/cursor.svg", invertInDark: true },
+      { name: "Claude Opus 4.6", logo: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claude-color.svg" },
+      { name: "Claude Sonnet 4.6", logo: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claude-color.svg" },
+      { name: "GitHub Copilot", logo: "https://api.iconify.design/simple-icons/githubcopilot.svg", invertInDark: true },
+    ],
+  },
+  {
+    id: "backend-db", title: "Backend & DB",
+    description: "Server-side logic, APIs, and database architecture — the invisible engine behind every product.",
+    icon: Code2, accentColor: "blue", size: "normal",
+    techLogos: [
+      { name: "Python", logo: "https://api.iconify.design/logos/python.svg" },
+      { name: "Supabase", logo: "https://api.iconify.design/logos/supabase-icon.svg" },
+      { name: "Firebase", logo: "https://api.iconify.design/logos/firebase.svg" },
+      { name: "MongoDB", logo: "https://api.iconify.design/logos/mongodb-icon.svg" },
+    ],
+  },
+  {
+    id: "frontend", title: "Frontend",
+    description: "Pixel-perfect, animated interfaces that feel alive and premium.",
+    icon: Monitor, accentColor: "cyan", size: "normal",
+    techLogos: [
+      { name: "React", logo: "https://api.iconify.design/logos/react.svg" },
+      { name: "Framer Motion", logo: "https://api.iconify.design/logos/framer.svg" },
+      { name: "Tailwind CSS", logo: "https://api.iconify.design/logos/tailwindcss-icon.svg" },
+    ],
+  },
+  {
+    id: "ai-chatbots", title: "AI Chatbots",
+    description: "Intelligent conversational agents for WhatsApp, Telegram, and custom interfaces tailored to any domain.",
+    icon: MessageSquare, accentColor: "green", size: "normal",
+    techLogos: [
+      { name: "WhatsApp API", logo: "https://api.iconify.design/logos/whatsapp-icon.svg" },
+      { name: "Telegram Bot", logo: "https://api.iconify.design/logos/telegram.svg" },
+      { name: "Twilio", logo: "https://api.iconify.design/logos/twilio-icon.svg" },
+    ],
+  },
+  {
+    id: "ui-ux", title: "UI/UX & Design",
+    description: "Crafting beautiful, user-centric interfaces and graphics with modern design tools and AI.",
+    icon: Palette, accentColor: "pink", size: "normal",
+    techLogos: [
+      { name: "Figma", logo: "https://api.iconify.design/logos/figma.svg" },
+      { name: "Canva", logo: "https://api.iconify.design/simple-icons/canva.svg?color=%2300C4CC" },
+      { name: "Claude AI", logo: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claude-color.svg" },
+    ],
+  },
+];
 
 const TechStack = () => {
-  const techCategories = [
-    {
-      title: "Programming Languages",
-      logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg",
-      techs: [
-        { name: "Python", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" },
-        { name: "JavaScript", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" },
-        { name: "HTML5", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" },
-        { name: "CSS3", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" }
-      ]
-    },
-    {
-      title: "Frontend Development",
-      logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg",
-      techs: [
-        { name: "React", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" },
-        { name: "Tailwind CSS", logo: "https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" },
-        { name: "Bootstrap", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-original.svg" }
-      ]
-    },
-    {
-      title: "AI & Machine Learning",
-      logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tensorflow/tensorflow-original.svg",
-      techs: [
-        { name: "TensorFlow", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tensorflow/tensorflow-original.svg" },
-        { name: "PyTorch", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/pytorch/pytorch-original.svg" },
-        { name: "OpenAI", logo: "https://www.vectorlogo.zone/logos/openai/openai-icon.svg" },
-        { name: "LangChain", logo: "https://cdn.worldvectorlogo.com/logos/langchain.svg" }
-      ]
-    },
-    {
-      title: "Automation & Workflows",
-      logo: "https://n8n.io/favicon.ico",
-      techs: [
-        { name: "n8n", logo: "https://n8n.io/favicon.ico" },
-        { name: "Zapier", logo: "https://www.vectorlogo.zone/logos/zapier/zapier-icon.svg" }
-      ]
-    },
-    {
-      title: "Backend & Databases",
-      logo: "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg",
-      techs: [
-        { name: "Node.js", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" },
-        { name: "Firebase", logo: "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" },
-        { name: "Supabase", logo: "https://www.vectorlogo.zone/logos/supabase/supabase-icon.svg" },
-        { name: "PostgreSQL", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" }
-      ]
-    },
-    {
-      title: "Cloud & DevOps",
-      logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg",
-      techs: [
-        { name: "Docker", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" },
-        { name: "Git", logo: "https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" },
-        { name: "GitHub", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/github/github-original.svg" },
-        { name: "GCP", logo: "https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg" }
-      ]
-    },
-    {
-      title: "APIs & Integration",
-      logo: "https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg",
-      techs: [
-        { name: "Postman", logo: "https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" },
-        { name: "FastAPI", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/fastapi/fastapi-original.svg" }
-      ]
-    },
-    {
-      title: "Design Tools",
-      logo: "https://www.vectorlogo.zone/logos/figma/figma-icon.svg",
-      techs: [
-        { name: "Figma", logo: "https://www.vectorlogo.zone/logos/figma/figma-icon.svg" },
-        { name: "Canva", logo: "https://www.vectorlogo.zone/logos/canva/canva-icon.svg" }
-      ]
-    }
-  ];
-
-  const coreSkills = [
-    { name: "Python (Data Science)", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" },
-    { name: "AI Agents", logo: "https://www.vectorlogo.zone/logos/openai/openai-icon.svg" },
-    { name: "React", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" },
-    { name: "n8n", logo: "https://n8n.io/favicon.ico" },
-    { name: "RAG Systems", logo: ragIcon },
-    { name: "Firebase", logo: "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" },
-    { name: "Supabase", logo: "https://www.vectorlogo.zone/logos/supabase/supabase-icon.svg" },
-    { name: "Automation", logo: "https://www.vectorlogo.zone/logos/zapier/zapier-icon.svg" },
-    { name: "Figma", logo: "https://www.vectorlogo.zone/logos/figma/figma-icon.svg" },
-    { name: "Canva", logo: "https://www.vectorlogo.zone/logos/canva/canva-icon.svg" }
-  ];
+  const getSizeClass = (size: string) => {
+    if (size === "large") return "bento-large";
+    if (size === "wide") return "bento-wide";
+    return "";
+  };
 
   return (
-    <section id="tech-stack" className="py-20 relative scroll-mt-28">
-      <div className="tech-stack-container n8n-node-card px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Tech <span className="gradient-text">Stack</span>
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Technologies I work with to build amazing solutions
-            </p>
+    <section id="skills" className="py-24 relative bg-gray-50 dark:bg-background">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-purple-100 dark:bg-purple-900/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <motion.div className="text-center mb-16" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5 }}>
+          <div className="liquid-glass-pill gap-2 px-4 py-1.5 text-accent text-xs font-mono tracking-widest uppercase mb-6">
+            <Sparkles size={14} /> Core Competencies
           </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
+            What I <span className="gradient-text drop-shadow-lg">Build With</span>
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
+            Laser-focused on the stack that ships AI products at startup speed.
+          </p>
+        </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {techCategories.map((category, index) => (
-              <div
-                key={index}
-                className="p-6 rounded-xl border border-slate-200 bg-white text-slate-900 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg group n8n-node-card dark:bg-card dark:text-foreground dark:border-border"
-              >
-                <div className="mb-4 group-hover:scale-110 transition-transform">
-                  <img src={category.logo} alt={category.title} className="w-12 h-12" />
-                </div>
-                <h3 className="text-lg font-semibold mb-4 gradient-text">
-                  {category.title}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {category.techs.map((tech, techIndex) => (
-                    <div
-                      key={techIndex}
-                      className="flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-sm text-slate-700 transition-colors group/tech hover:border-primary/40 hover:bg-primary/10 hover:text-primary dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-primary dark:hover:text-primary-foreground"
-                    >
-                      <img src={tech.logo} alt={tech.name} className="w-4 h-4 group-hover/tech:scale-110 transition-transform" />
-                      <span>{tech.name}</span>
-                    </div>
-                  ))}
-                </div>
+        <motion.div className="bento-grid" initial="hidden" whileInView="show" viewport={{ once: true, margin: "-80px" }} variants={containerV}>
+          {bentoCards.map((card) => (
+            <motion.div key={card.id} className={`bento-card group ${getSizeClass(card.size)}`} variants={itemV} whileHover={{ scale: 1.02, y: -4 }} transition={{ duration: 0.3 }}>
+              {/* Ambient glow */}
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-accent/5 dark:bg-accent/10 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+              {/* Icon */}
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-5 bg-gray-100 dark:bg-white/[0.06] border border-gray-200 dark:border-white/[0.10]">
+                <card.icon size={24} className="text-accent" />
               </div>
-            ))}
-          </div>
 
-          {/* Core Expertise - n8n style marquee */}
-          <div className="mt-16 p-8 rounded-lg bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 border border-primary/20 relative overflow-hidden n8n-node-card">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5 animate-pulse"></div>
-            <h3 className="text-2xl font-bold text-center relative z-10">
-              💪 Core <span className="gradient-text">Expertise</span>
-            </h3>
-            <p className="text-center text-sm md:text-base text-muted-foreground mt-2 relative z-10">
-              Inspired by the n8n workflow canvas — hover to pause and explore each capability.
-            </p>
-            <div className="core-expertise-marquee relative z-10 mt-8">
-              <div className="core-expertise-track">
-                {[...coreSkills, ...coreSkills].map((skill, index) => (
-                  <div
-                    key={`core-skill-${index}`}
-                    className="core-expertise-item n8n-node-card"
-                    aria-hidden={index >= coreSkills.length}
-                  >
-                    <div className="core-expertise-icon">
-                      <img src={skill.logo} alt={skill.name} />
-                    </div>
-                    <span>{skill.name}</span>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">{card.title}</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base leading-relaxed mb-6">{card.description}</p>
+
+              {/* Tech logos */}
+              <div className="flex flex-wrap gap-3">
+                {card.techLogos.map((tech) => (
+                  <div key={tech.name} className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] hover:border-gray-300 dark:hover:border-white/[0.15] hover:bg-gray-100 dark:hover:bg-white/[0.08] transition-all group/tech">
+                    {typeof tech.logo === "string" ? (
+                      <div className="relative w-5 h-5 group-hover/tech:scale-110 transition-transform flex-shrink-0">
+                        <img src={tech.logo} alt={tech.name} className={`w-full h-full object-contain ${tech.invertInDark ? 'dark:invert' : ''} opacity-80 hover:opacity-100 transition-opacity`} onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                      </div>
+                    ) : (
+                      <div className="w-5 h-5 flex items-center justify-center group-hover/tech:scale-110 transition-transform flex-shrink-0 text-gray-800 dark:text-white">{tech.logo}</div>
+                    )}
+                    <span className="text-xs text-gray-600 dark:text-gray-400 group-hover/tech:text-gray-900 dark:group-hover/tech:text-white transition-colors whitespace-nowrap">{tech.name}</span>
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

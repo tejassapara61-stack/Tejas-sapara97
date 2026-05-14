@@ -1,130 +1,114 @@
-import ThemeToggle from "@/components/ThemeToggle";
 import { cn } from "@/lib/utils";
 import type { MouseEvent } from "react";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const NAV_LINKS = [
-  { label: "Hero", href: "#hero" },
   { label: "About", href: "#about" },
-  { label: "Tech Stack", href: "#tech-stack" },
-  { label: "Workflow", href: "#workflow-demo" },
+  { label: "Stack", href: "#skills" },
   { label: "Projects", href: "#projects" },
+  { label: "Automations", href: "#automations" },
   { label: "Services", href: "#services" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Contact", href: "#contact" }
+  { label: "Playbook", href: "#playbook" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const Header = () => {
   const [activeHash, setActiveHash] = useState<string>("#hero");
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
     const currentHash = window.location.hash;
-    if (currentHash) {
-      setActiveHash(currentHash);
-    }
+    if (currentHash) setActiveHash(currentHash);
   }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
+  useEffect(() => {
     const sections = NAV_LINKS.map((link) => document.querySelector<HTMLElement>(link.href)).filter(
       (section): section is HTMLElement => Boolean(section)
     );
-
-    if (sections.length === 0) {
-      return;
-    }
+    if (sections.length === 0) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         const visibleEntries = entries.filter((entry) => entry.isIntersecting);
-
         if (visibleEntries.length > 0) {
           const topMost = visibleEntries.reduce((prev, current) =>
             prev.boundingClientRect.top < current.boundingClientRect.top ? prev : current
           );
           setActiveHash(`#${topMost.target.id}`);
-          return;
         }
-
-        const nearest = entries.reduce((prev, current) =>
-          prev.boundingClientRect.top < current.boundingClientRect.top ? prev : current
-        );
-        setActiveHash(`#${nearest.target.id}`);
       },
-      {
-        rootMargin: "-40% 0px -55% 0px",
-        threshold: [0.1, 0.25, 0.5]
-      }
+      { rootMargin: "-40% 0px -55% 0px", threshold: [0.1, 0.25, 0.5] }
     );
 
     sections.forEach((section) => observer.observe(section));
-
-    return () => {
-      sections.forEach((section) => observer.unobserve(section));
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   const handleLinkClick = useCallback((event: MouseEvent<HTMLAnchorElement>, hash: string) => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
     event.preventDefault();
     const target = document.querySelector<HTMLElement>(hash);
-
     if (target) {
       target.scrollIntoView({ behavior: "smooth", block: "start" });
       setActiveHash(hash);
-
       window.history.replaceState(null, "", hash);
     }
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:backdrop-blur">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between gap-4 py-3">
-          <a href="#hero" className="font-semibold text-sm md:text-base tracking-tight text-foreground">
-            Tejas Sapara • AI Automation
+    <header className={cn("sticky top-0 z-40 transition-all duration-500", scrolled ? "py-2" : "py-3")}>
+      <div className={cn(
+        "max-w-6xl mx-4 md:mx-auto rounded-2xl transition-all duration-500",
+        scrolled
+          ? "px-5 py-2.5 bg-white/80 dark:bg-white/[0.06] border border-gray-200 dark:border-white/[0.12] shadow-lg dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-xl"
+          : "px-6 py-3 bg-white/40 dark:bg-white/[0.02] border border-transparent backdrop-blur-md"
+      )}>
+        <div className="flex items-center justify-between gap-4">
+          {/* Branding */}
+          <a href="#hero" className="font-bold text-sm md:text-base tracking-tight text-gray-900 dark:text-white hover:text-accent transition-colors">
+            Tejass Sapara<span className="text-gray-500 dark:text-gray-400 font-normal"> • AI Architect</span>
           </a>
-          <div className="flex items-center gap-3">
+
+          {/* Right side */}
+          <div className="flex items-center gap-4">
+            {/* Nav links — desktop only */}
+            <nav aria-label="Primary navigation" className="hidden md:block">
+              <ul className="flex items-center gap-1">
+                {NAV_LINKS.map((item) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      onClick={(event) => handleLinkClick(event, item.href)}
+                      className={cn(
+                        "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300 border",
+                        activeHash === item.href
+                          ? "text-gray-900 dark:text-white bg-gray-100 dark:bg-white/[0.10] border-gray-200 dark:border-white/[0.15]"
+                          : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white border-transparent"
+                      )}
+                      aria-current={activeHash === item.href ? "page" : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            {/* CTA — glass prominent button */}
             <Link
               to="/contact"
-              className="hidden rounded-full border border-primary/30 px-4 py-1.5 text-sm font-medium text-primary transition hover:border-primary hover:bg-primary/10 md:inline-flex"
+              className="hidden md:inline-flex px-5 py-2 rounded-full text-sm font-semibold text-gray-900 dark:text-white bg-gray-100 dark:bg-white/[0.10] border border-gray-200 dark:border-white/[0.18] shadow-sm dark:shadow-[0_4px_16px_rgba(0,0,0,0.2)] backdrop-blur-lg transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:bg-gray-200 dark:hover:bg-white/[0.15]"
             >
               Book a Consult
             </Link>
-            <ThemeToggle floating={false} className="shrink-0" />
           </div>
         </div>
-        <nav aria-label="Primary navigation" className="pb-3">
-          <ul className="flex flex-wrap items-center justify-center gap-3 text-sm md:text-base">
-            {NAV_LINKS.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  onClick={(event) => handleLinkClick(event, item.href)}
-                  className={cn(
-                    "rounded-full border border-transparent px-3 py-1.5 text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground focus:outline-none focus-visible:border-primary focus-visible:text-foreground",
-                    activeHash === item.href && "border-primary/40 bg-primary/10 text-foreground"
-                  )}
-                  aria-current={activeHash === item.href ? "page" : undefined}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
       </div>
     </header>
   );

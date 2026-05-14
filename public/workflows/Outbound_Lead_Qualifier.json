@@ -1,0 +1,887 @@
+{
+  "name": "Outbound Lead Qualifier",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.vapi.ai/call",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"assistantId\": \"e088d9b2-05d6-494f-bce4-841686d85844\",\n    \"phoneNumberId\": \"036f61a8-5eed-45b6-80be-48e668a90ec1\",\n    \"customer\": {\n      \"number\": \"+91\" + $json['Phone Number']\n    },\n    \"assistantOverrides\": {\n      \"variableValues\": {\n        \"candidate_name\": $json['Candidate Name'],\n        \"job_role\": $json['Job Role'],\n        \"experience_level\": $json['Experience'],\n        \"jd_summary\": $json.jd_summary\n      }\n    }\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -1120,
+        224
+      ],
+      "id": "b327dd03-25cd-40ba-8430-970a7ce1d850",
+      "name": "Call Lead",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "Pae7FR2NnBZfq2vh",
+          "name": "Bearer Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -896,
+        224
+      ],
+      "id": "dc9de491-bfa3-4a19-a13a-1d091c43f7d3",
+      "name": "Wait",
+      "webhookId": "7f524fb2-74b6-4b8e-b9eb-8fbc78c891fa"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.vapi.ai/call/{{ $('Call Lead').item.json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -672,
+        144
+      ],
+      "id": "e8c4c47e-b9ae-4980-ad2c-44158977fa6a",
+      "name": "Get Call Details",
+      "executeOnce": true,
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "Pae7FR2NnBZfq2vh",
+          "name": "Bearer Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "73716a76-22fa-4f8c-880f-b76350b436f9",
+              "leftValue": "={{ $json.endedReason }}",
+              "rightValue": "voicemail",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -224,
+        96
+      ],
+      "id": "03abc363-f21b-49ef-8abb-84a8d9b09858",
+      "name": "Voicemail?"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Fetching raw data from Vapi\nconst vapiData = $input.all()[0].json;\n\n// 2. Safely extracting structured outputs (Marks)\nconst marks = vapiData.analysis?.structuredOutputs || {};\n\n// 3. Calculating Scores (1 Right = 20 Marks)\n// Using Number() ensures even if Vapi sends a string \"1\", math works perfectly.\nconst q1 = Number(marks.q1_score || 0) * 20;\nconst q2 = Number(marks.q2_score || 0) * 20;\nconst q3 = Number(marks.q3_score || 0) * 20;\nconst q4 = Number(marks.q4_score || 0) * 20;\nconst q5 = Number(marks.q5_score || 0) * 20;\n\nconst totalScore = q1 + q2 + q3 + q4 + q5;\n\n// 4. The 60+ Pass Logic\nconst finalStatus = totalScore >= 60 ? \"SHORTLISTED ✅\" : \"REJECTED ❌\";\n\n// 5. Extracting Candidate details safely\nconst candidateName = vapiData.assistantOverrides?.variableValues?.candidate_name || \"Unknown Candidate\";\nconst jobRole = vapiData.assistantOverrides?.variableValues?.job_role || \"Unknown Role\";\nconst phone = vapiData.customer?.number || \"N/A\";\nconst summary = vapiData.analysis?.summary || \"No summary available.\";\nconst transcript = vapiData.transcript || \"No transcript available.\";\n\n// 6. Returning an ultra-clean JSON for the next step\nreturn {\n  json: {\n    candidateName,\n    jobRole,\n    phone,\n    totalScore,\n    status: finalStatus,\n    summary,\n    transcript,\n    date: new Date().toLocaleDateString('en-IN')\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        192
+      ],
+      "id": "e62aef73-35c6-484f-8904-11e185b8dd2b",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.all()[0].json;\n\n// Dynamic Styling logic based on Shortlisted/Rejected\nconst isPass = d.status.includes(\"SHORTLISTED\");\nconst badgeColor = isPass ? \"#10B981\" : \"#EF4444\"; // Emerald Green for Pass, Red for Fail\nconst badgeBg = isPass ? \"#D1FAE5\" : \"#FEE2E2\";\n\nconst htmlTemplate = `\n<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1F2937; line-height: 1.6; padding: 40px; margin: 0; }\n        .header { text-align: center; border-bottom: 2px solid #E5E7EB; padding-bottom: 20px; margin-bottom: 30px; }\n        .logo-text { font-size: 32px; font-weight: 900; color: #4F46E5; margin: 0; }\n        .sub-logo { font-size: 14px; color: #6B7280; text-transform: uppercase; letter-spacing: 2px; }\n        \n        .candidate-info { display: flex; justify-content: space-between; background: #F9FAFB; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #E5E7EB; }\n        .candidate-info p { margin: 5px 0; font-size: 16px; }\n        \n        .score-card { text-align: center; padding: 30px; border-radius: 12px; border: 2px solid ${badgeColor}; background-color: ${badgeBg}; margin-bottom: 30px; }\n        .score-card h1 { font-size: 48px; margin: 0; color: ${badgeColor}; }\n        .score-card h2 { margin: 10px 0 0 0; font-size: 24px; color: #1F2937; }\n        \n        .section-title { color: #4F46E5; border-bottom: 2px solid #4F46E5; padding-bottom: 5px; margin-top: 30px; font-size: 20px; }\n        .summary-text { font-size: 16px; color: #374151; background: #F3F4F6; padding: 15px; border-radius: 8px; border-left: 4px solid #4F46E5; }\n        \n        .transcript-box { background: #111827; color: #D1D5DB; padding: 20px; border-radius: 8px; font-family: monospace; font-size: 12px; white-space: pre-wrap; margin-top: 15px; }\n        \n        .footer { text-align: center; font-size: 12px; color: #9CA3AF; margin-top: 50px; border-top: 1px solid #E5E7EB; padding-top: 20px; }\n    </style>\n</head>\n<body>\n    <div class=\"header\">\n        <h1 class=\"logo-text\">⚡ CoreNexa</h1>\n        <p class=\"sub-logo\">AI Technical Evaluation Report</p>\n    </div>\n    \n    <div class=\"candidate-info\">\n        <div>\n            <p><strong>Candidate:</strong> ${d.candidateName}</p>\n            <p><strong>Role:</strong> ${d.jobRole}</p>\n        </div>\n        <div>\n            <p><strong>Date:</strong> ${d.date}</p>\n            <p><strong>Phone:</strong> ${d.phone}</p>\n        </div>\n    </div>\n    \n    <div class=\"score-card\">\n        <h1>${d.totalScore} / 100</h1>\n        <h2>${d.status}</h2>\n    </div>\n    \n    <h3 class=\"section-title\">AI Interview Summary</h3>\n    <div class=\"summary-text\">\n        ${d.summary}\n    </div>\n    \n    <h3 class=\"section-title\">Full Call Transcript</h3>\n    <div class=\"transcript-box\">${d.transcript}</div>\n    \n    <div class=\"footer\">\n        Confidential Report • Generated automatically by CoreNexa AI Engine\n    </div>\n</body>\n</html>\n`;\n\nreturn { \n  json: { \n    htmlContent: htmlTemplate, \n    fileName: `CoreNexa_Report_${d.candidateName.replace(/\\s+/g, '_')}.pdf`,\n    candidateName: d.candidateName,\n    totalScore: d.totalScore,\n    status: d.status\n  } \n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        192
+      ],
+      "id": "8f299982-fcc7-4e2c-ae25-a669065efe61",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appd3T07H6AOtii7J",
+          "mode": "list",
+          "cachedResultName": "Airtable (Log Voicemail)",
+          "cachedResultUrl": "https://airtable.com/appd3T07H6AOtii7J"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblgrbUUXZ0AgdKll",
+          "mode": "list",
+          "cachedResultName": "Candidates copy",
+          "cachedResultUrl": "https://airtable.com/appd3T07H6AOtii7J/tblgrbUUXZ0AgdKll"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Candidate Name": "={{ $('Standardize Data').item.json['Candidate Name'] }}",
+            "Phone Number": "={{ $('Standardize Data').item.json['Phone Number'] }}",
+            "Job Role": "={{ $('Standardize Data').item.json['Job Role'] }}",
+            "Status": "Voicemail",
+            "Total Score": 0
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Candidate Name",
+              "displayName": "Candidate Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Job Role",
+              "displayName": "Job Role",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Total Score",
+              "displayName": "Total Score",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "AI Summary",
+              "displayName": "AI Summary",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Evaluation Report",
+              "displayName": "Evaluation Report",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "bd5d3ab8-26e4-4563-8a9b-c8520537d3a0",
+      "name": "Create or update a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "IkdoeP2BzvyN1K9o",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"Candidate Name\": $('Code in JavaScript').item.json.candidateName, \"Phone Number\": $('Standardize Data').item.json['Phone Number'], \"Job Role\": $('Code in JavaScript').item.json.jobRole, \"Experience\": $('Standardize Data').item.json.Experience || 'N/A', \"Score\": $('Code in JavaScript').item.json.totalScore, \"Final Status\": $('Code in JavaScript').item.json.status, \"PDF_Report\": \"Generated - See Airtable\" } }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "Content-Type, Accept"
+              }
+            ]
+          }
+        }
+      },
+      "id": "11686463-5836-4761-8e4c-3734dc7be779",
+      "name": "Respond - Success with PDF",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        896,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"Candidate Name\": $('Standardize Data').item.json['Candidate Name'], \"Phone Number\": $('Standardize Data').item.json['Phone Number'], \"Job Role\": $('Standardize Data').item.json['Job Role'], \"Status\": \"Voicemail - No Answer\" } }}",
+        "options": {}
+      },
+      "id": "1486fe51-0f2f-4285-9c50-0bfd5fdda0f1",
+      "name": "Respond - Voicemail",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appd3T07H6AOtii7J",
+          "mode": "list",
+          "cachedResultName": "Airtable (Log Voicemail)",
+          "cachedResultUrl": "https://airtable.com/appd3T07H6AOtii7J"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblgrbUUXZ0AgdKll",
+          "mode": "list",
+          "cachedResultName": "Candidates copy",
+          "cachedResultUrl": "https://airtable.com/appd3T07H6AOtii7J/tblgrbUUXZ0AgdKll"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Candidate Name": "={{ $('Code in JavaScript').item.json.candidateName }}",
+            "Phone Number": "={{ $('Standardize Data').item.json['Phone Number'] }}",
+            "Job Role": "={{ $('Code in JavaScript').item.json.jobRole }}",
+            "Total Score": "={{ $('Code in JavaScript').item.json.totalScore }}",
+            "Status": "={{ $('Code in JavaScript').item.json.status }}",
+            "AI Summary": "={{ $('Code in JavaScript').item.json.summary }}",
+            "Evaluation Report": "={{ $('Convert HTML to PDF').item.binary.data }}"
+          },
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Candidate Name",
+              "displayName": "Candidate Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Job Role",
+              "displayName": "Job Role",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Total Score",
+              "displayName": "Total Score",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "AI Summary",
+              "displayName": "AI Summary",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Evaluation Report",
+              "displayName": "Evaluation Report",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "994d4a8d-e72a-4958-9367-3774045b0d4e",
+      "name": "Save Interview Results",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        672,
+        192
+      ],
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "IkdoeP2BzvyN1K9o",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "id-1",
+              "leftValue": "={{ $('Standardize Data').item.json['Phone Number'] }}",
+              "rightValue": "incorrect format",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d995712b-dd8a-4e14-884c-8ec0dd9902c5",
+      "name": "Incorrect Phone?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1344,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "id-1",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "ended",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "565f7e8e-a046-4199-aaa3-98b4f371d275",
+      "name": "Ended?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -448,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "maxItems": 60
+      },
+      "id": "06763161-f656-4bd7-880a-d0df48ea4549",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "mode": "id",
+          "value": "appd3T07H6AOtii7J"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "id",
+          "value": "tblgrbUUXZ0AgdKll"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Candidate Name": "={{ $('Standardize Data').item.json['Candidate Name'] }}",
+            "Phone Number": "={{ $('Standardize Data').item.json['Phone Number'] }}",
+            "Job Role": "={{ $('Standardize Data').item.json['Job Role'] }}",
+            "Status": "Invalid Phone",
+            "Total Score": 0
+          },
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Candidate Name",
+              "displayName": "Candidate Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Job Role",
+              "displayName": "Job Role",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Total Score",
+              "displayName": "Total Score",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "AI Summary",
+              "displayName": "AI Summary",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Evaluation Report",
+              "displayName": "Evaluation Report",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "fcf9f2e0-7052-4875-88c3-3c4d515c9823",
+      "name": "Log Invalid Phone",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -1120,
+        416
+      ],
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "IkdoeP2BzvyN1K9o",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "html",
+        "options": {
+          "fileName": "={{ $json.fileName }}"
+        }
+      },
+      "id": "176bfcac-baf2-4586-a86b-50088ee15ffb",
+      "name": "Convert HTML to PDF",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nreturn items.map(item => {\n  // 1. Safe extraction: Agar body nahi mili toh crash nahi hoga, empty object lega\n  const uiData = item.json.body || item.json || {}; \n  \n  const candidateName = uiData['Candidate Name'] || \"Candidate\";\n  const phoneNumber = uiData['Phone Number'] || \"\";\n  const role = uiData['Job Role'] || \"Developer\";\n  const experience = uiData['Experience'] || \"Fresher\";\n\n  // 2. Safe Phone Formatting\n  let cleanNumber = String(phoneNumber).replace(/\\D/g, '');\n  let standardizedNumber = cleanNumber.length === 10 ? cleanNumber : \n                          (cleanNumber.length === 12 && cleanNumber.startsWith('91') ? cleanNumber.slice(2) : 'incorrect format');\n\n  // 3. JD Summary Auto-Generator\n  let shortJdSummary = `Conduct a technical screening for the ${role} position focusing on core fundamental skills and logic.`;\n  \n  if (role.toLowerCase().includes(\"python\")) {\n      shortJdSummary = \"Focus on Python core concepts, Django framework, REST APIs, and basic SQL queries. Ask practical problem-solving questions.\";\n  } else if (role.toLowerCase().includes(\"professor\") || role.toLowerCase().includes(\"teacher\")) {\n      shortJdSummary = \"Focus on teaching methodologies, subject matter expertise, and classroom management. Do not ask coding questions.\";\n  }\n\n  // 4. Send clean data to Vapi\n  return {\n    json: {\n      'Candidate Name': candidateName,\n      'Job Role': role,\n      'Experience': experience,\n      'Phone Number': standardizedNumber,\n      'jd_summary': shortJdSummary \n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1568,
+        320
+      ],
+      "id": "7f4a0933-833b-4d56-8435-d9234b6789c8",
+      "name": "Standardize Data"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "calling ",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "0f259468-acaa-4bdd-8736-b8d9468b93dc",
+      "name": "Webhook Trigger1",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1840,
+        368
+      ],
+      "webhookId": "522be913-13b1-4e27-9cdb-6b9a2f6b1eab"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Call Lead": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Get Call Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Call Details": {
+      "main": [
+        [
+          {
+            "node": "Ended?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Voicemail?": {
+      "main": [
+        [
+          {
+            "node": "Create or update a record",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Convert HTML to PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create or update a record": {
+      "main": [
+        [
+          {
+            "node": "Respond - Voicemail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Interview Results": {
+      "main": [
+        [
+          {
+            "node": "Respond - Success with PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Incorrect Phone?": {
+      "main": [
+        [
+          {
+            "node": "Log Invalid Phone",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Call Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Invalid Phone": {
+      "main": [
+        []
+      ]
+    },
+    "Ended?": {
+      "main": [
+        [
+          {
+            "node": "Voicemail?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert HTML to PDF": {
+      "main": [
+        [
+          {
+            "node": "Save Interview Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Standardize Data": {
+      "main": [
+        [
+          {
+            "node": "Incorrect Phone?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Standardize Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "a6d32245-faf2-496e-8c2b-ecc53ff8cb33",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "68b3f0f6e7cfbfd0688ed65eb600db8acb1fb50140fe3266d7a7378f703c940f"
+  },
+  "id": "g1mMZYGjQPFYcVAa",
+  "tags": []
+}

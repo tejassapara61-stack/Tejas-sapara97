@@ -1,0 +1,487 @@
+{ "_imported_from": "AI Payroll Processing & Payslip Generation (1).json",
+  "name": "AI Payroll Processing & Payslip Generation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "b56e9b19-c144-45ed-9517-d692d6c9030d",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "1b482c53-6172-4311-8377-d3a7542c73a4",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        {
+          "name": "AI Payroll Processing & Payslip Generation",
+          "nodes": [
+            {
+              "parameters": {
+                "httpMethod": "POST",
+                "path": "b56e9b19-c144-45ed-9517-d692d6c9030d",
+                "responseMode": "responseNode",
+                "options": {}
+              },
+              "id": "1b482c53-6172-4311-8377-d3a7542c73a4",
+              "name": "Webhook",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 2.1,
+              "position": [
+                0,
+                0
+              ],
+              "webhookId": "b56e9b19-c144-45ed-9517-d692d6c9030d"
+            },
+            {
+              "parameters": {
+                "operation": "search",
+                "base": {
+                  "__rl": true,
+                  "value": "app9o13LWFe6tS1xU",
+                  "mode": "list",
+                  "cachedResultName": "Nurture Lead",
+                  "cachedResultUrl": "https://airtable.com/app9o13LWFe6tS1xU"
+                },
+                "table": {
+                  "__rl": true,
+                  "value": "tblRgQEwafNAtehTE",
+                  "mode": "list",
+                  "cachedResultName": "Table 1",
+                  "cachedResultUrl": "https://airtable.com/app9o13LWFe6tS1xU/tblRgQEwafNAtehTE"
+                },
+                "filterByFormula": "={{ '{Employee_ID} = \"' + $json.body.employeeId + '\"' }}",
+                "options": {}
+              },
+              "id": "b60ab64e-b92a-41e5-a3bc-64368f790be0",
+              "name": "Fetch Employee Data",
+              "type": "n8n-nodes-base.airtable",
+              "typeVersion": 2.1,
+              "position": [
+                224,
+                0
+              ],
+              "credentials": {
+                "airtableTokenApi": {
+                  "id": "IkdoeP2BzvyN1K9o",
+                  "name": "Airtable Personal Access Token account"
+                }
+              }
+            },
+            {
+              "parameters": {
+                "jsCode": "const baseSalary = $input.item.json.body.baseSalary || 0;\nconst unpaidLeaves = $('Fetch Employee Data').item.json.unpaidLeaves || 0;\nconst taxRate = 0.1; // 10% tax\n\nconst dailyRate = baseSalary / 30;\nconst grossPay = baseSalary;\nconst leaveDeduction = dailyRate * unpaidLeaves;\nconst taxableAmount = grossPay - leaveDeduction;\nconst taxDeduction = taxableAmount * taxRate;\nconst netPayable = taxableAmount - taxDeduction;\n\nreturn [{\n  json: {\n    employeeId: $input.item.json.body.employeeId,\n    employeeName: $('Fetch Employee Data').item.json.fields.Name || 'Employee',\n    month: $input.item.json.body.month,\n    baseSalary: baseSalary,\n    unpaidLeaves: unpaidLeaves,\n    grossPay: Math.round(grossPay * 100) / 100,\n    leaveDeduction: Math.round(leaveDeduction * 100) / 100,\n    taxDeduction: Math.round(taxDeduction * 100) / 100,\n    totalDeductions: Math.round((leaveDeduction + taxDeduction) * 100) / 100,\n    netPayable: Math.round(netPayable * 100) / 100\n  }\n}];"
+              },
+              "id": "3da5adfa-a58f-4b67-8f03-bc148e451a69",
+              "name": "Salary Calculation Engine",
+              "type": "n8n-nodes-base.code",
+              "typeVersion": 2,
+              "position": [
+                448,
+                0
+              ]
+            },
+            {
+              "parameters": {
+                "modelId": {
+                  "__rl": true,
+                  "mode": "list",
+                  "value": "gpt-4o-mini"
+                },
+                "responses": {
+                  "values": [
+                    {
+                      "content": "=You are an HR Payroll Assistant. Based on the calculated Net Salary of {{ $json.netPayable }} and {{ $json.unpaidLeaves }} unpaid leaves, generate a short, professional 2-line remark for the employee's payslip (e.g., 'Salary processed successfully with 2 unpaid leave deductions. Keep up the good work!')."
+                    }
+                  ]
+                },
+                "builtInTools": {},
+                "options": {}
+              },
+              "id": "69cafd3b-cd8c-4fdc-b0c9-58582f3474a9",
+              "name": "AI Payroll Assistant",
+              "type": "@n8n/n8n-nodes-langchain.openAi",
+              "typeVersion": 2.1,
+              "position": [
+                672,
+                0
+              ],
+              "credentials": {
+                "openAiApi": {
+                  "id": "R7nqRWbajKv4DK31",
+                  "name": "OpenAi account"
+                }
+              }
+            },
+            {
+              "parameters": {
+                "jsCode": "const salaryData = $('Salary Calculation Engine').item.json;\nconst aiRemarks = $json.message || '';\n\nconst html = `\n<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { font-family: Arial, sans-serif; margin: 40px; }\n    .header { text-align: center; margin-bottom: 30px; }\n    .company { font-size: 24px; font-weight: bold; color: #333; }\n    .payslip-title { font-size: 18px; color: #666; margin-top: 10px; }\n    .employee-info { margin: 20px 0; }\n    .info-row { display: flex; margin: 8px 0; }\n    .label { font-weight: bold; width: 200px; }\n    .value { color: #555; }\n    table { width: 100%; border-collapse: collapse; margin: 20px 0; }\n    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }\n    th { background-color: #f5f5f5; font-weight: bold; }\n    .total-row { font-weight: bold; font-size: 16px; background-color: #f0f0f0; }\n    .remarks { margin-top: 30px; padding: 15px; background-color: #f9f9f9; border-left: 4px solid #4CAF50; }\n    .footer { margin-top: 40px; text-align: center; color: #888; font-size: 12px; }\n  </style>\n</head>\n<body>\n  <div class=\"header\">\n    <div class=\"company\">Company Name</div>\n    <div class=\"payslip-title\">PAYSLIP - ${salaryData.month}</div>\n  </div>\n  \n  <div class=\"employee-info\">\n    <div class=\"info-row\">\n      <span class=\"label\">Employee ID:</span>\n      <span class=\"value\">${salaryData.employeeId}</span>\n    </div>\n    <div class=\"info-row\">\n      <span class=\"label\">Employee Name:</span>\n      <span class=\"value\">${salaryData.employeeName}</span>\n    </div>\n    <div class=\"info-row\">\n      <span class=\"label\">Month:</span>\n      <span class=\"value\">${salaryData.month}</span>\n    </div>\n  </div>\n\n  <table>\n    <tr>\n      <th>Description</th>\n      <th style=\"text-align: right;\">Amount</th>\n    </tr>\n    <tr>\n      <td>Base Salary</td>\n      <td style=\"text-align: right;\">₹${salaryData.baseSalary.toFixed(2)}</td>\n    </tr>\n    <tr>\n      <td>Gross Pay</td>\n      <td style=\"text-align: right;\">₹${salaryData.grossPay.toFixed(2)}</td>\n    </tr>\n    <tr>\n      <td>Leave Deduction (${salaryData.unpaidLeaves} days)</td>\n      <td style=\"text-align: right;\">-₹${salaryData.leaveDeduction.toFixed(2)}</td>\n    </tr>\n    <tr>\n      <td>Tax Deduction</td>\n      <td style=\"text-align: right;\">-₹${salaryData.taxDeduction.toFixed(2)}</td>\n    </tr>\n    <tr>\n      <td>Total Deductions</td>\n      <td style=\"text-align: right;\">-₹${salaryData.totalDeductions.toFixed(2)}</td>\n    </tr>\n    <tr class=\"total-row\">\n      <td>Net Payable</td>\n      <td style=\"text-align: right;\">₹${salaryData.netPayable.toFixed(2)}</td>\n    </tr>\n  </table>\n\n  <div class=\"remarks\">\n    <strong>AI Remarks:</strong><br/>\n    ${aiRemarks}\n  </div>\n\n  <div class=\"footer\">\n    This is a computer-generated payslip and does not require a signature.\n  </div>\n</body>\n</html>\n`;\n\nreturn [{\n  json: {\n    ...salaryData,\n    ai_response: aiRemarks,\n    html: html\n  }\n}];"
+              },
+              "id": "0c76a927-81ad-4688-9ffa-d39d2c69ba79",
+              "name": "Generate HTML Payslip",
+              "type": "n8n-nodes-base.code",
+              "typeVersion": 2,
+              "position": [
+                1024,
+                0
+              ]
+            },
+            {
+              "parameters": {
+                "operation": "html",
+                "options": {
+                  "fileName": "=payslip_{{ $json.employeeId }}_{{ $json.month }}.pdf"
+                }
+              },
+              "id": "2723bec1-f383-4a31-8587-f03d719b4b24",
+              "name": "Convert HTML to PDF",
+              "type": "n8n-nodes-base.convertToFile",
+              "typeVersion": 1.1,
+              "position": [
+                1248,
+                0
+              ]
+            },
+            {
+              "parameters": {
+                "operation": "update",
+                "base": {
+                  "__rl": true,
+                  "value": "app9o13LWFe6tS1xU",
+                  "mode": "list",
+                  "cachedResultName": "Nurture Lead",
+                  "cachedResultUrl": "https://airtable.com/app9o13LWFe6tS1xU"
+                },
+                "table": {
+                  "__rl": true,
+                  "value": "tblRgQEwafNAtehTE",
+                  "mode": "list",
+                  "cachedResultName": "Table 1",
+                  "cachedResultUrl": "https://airtable.com/app9o13LWFe6tS1xU/tblRgQEwafNAtehTE"
+                },
+                "columns": {
+                  "mappingMode": "defineBelow",
+                  "value": {
+                    "id": "={{ $('Fetch Employee Data').item.json.id }}",
+                    "Net_Salary": "={{ $json.netPayable }}",
+                    "Status": "Processed",
+                    "Payslip_PDF": "={{ $binary.data }}"
+                  }
+                },
+                "options": {
+                  "typecast": false,
+                  "updateAllMatches": false
+                }
+              },
+              "id": "8d9540b3-782c-4bb8-80d7-d090593c51ea",
+              "name": "Save & Finalize",
+              "type": "n8n-nodes-base.airtable",
+              "typeVersion": 2.1,
+              "position": [
+                1472,
+                0
+              ],
+              "credentials": {
+                "airtableTokenApi": {
+                  "id": "IkdoeP2BzvyN1K9o",
+                  "name": "Airtable Personal Access Token account"
+                }
+              }
+            },
+            {
+              "parameters": {
+                "respondWith": "json",
+                "responseBody": "={\n  \"Status\": \"Success\",\n  \"Employee\": \"{{ $json.employeeName }}\",\n  \"Net_Salary\": \"{{ $json.netPayable }}\",\n  \"AI_Remarks\": \"{{ $json.ai_response }}\",\n  \"Payslip\": \"Generated & Saved\"\n}",
+                "options": {}
+              },
+              "id": "f442eeec-587d-40fb-9b74-3c862dc77b59",
+              "name": "Respond to Webhook",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1.5,
+              "position": [
+                1696,
+                0
+              ]
+            }
+          ],
+          "pinData": {},
+          "connections": {
+            "Webhook": {
+              "main": [
+                [
+                  {
+                    "node": "Fetch Employee Data",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Fetch Employee Data": {
+              "main": [
+                [
+                  {
+                    "node": "Salary Calculation Engine",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Salary Calculation Engine": {
+              "main": [
+                [
+                  {
+                    "node": "AI Payroll Assistant",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "AI Payroll Assistant": {
+              "main": [
+                [
+                  {
+                    "node": "Generate HTML Payslip",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Generate HTML Payslip": {
+              "main": [
+                [
+                  {
+                    "node": "Convert HTML to PDF",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Convert HTML to PDF": {
+              "main": [
+                [
+                  {
+                    "node": "Save & Finalize",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Save & Finalize": {
+              "main": [
+                [
+                  {
+                    "node": "Respond to Webhook",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "active": false,
+          "settings": {
+            "executionOrder": "v1",
+            "binaryMode": "separate",
+            "availableInMCP": false
+          },
+          "versionId": "74c30d4d-3205-4f5e-95c4-73d308dddc8c",
+          "meta": {
+            "templateCredsSetupCompleted": true,
+            "instanceId": "68b3f0f6e7cfbfd0688ed65eb600db8acb1fb50140fe3266d7a7378f703c940f"
+          },
+          "id": "WXx7SzfzvicW7pIX",
+          "tags": []
+        }
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "app9o13LWFe6tS1xU",
+          "mode": "list",
+          "cachedResultName": "Nurture Lead",
+          "cachedResultUrl": "https://airtable.com/app9o13LWFe6tS1xU"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblRgQEwafNAtehTE",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/app9o13LWFe6tS1xU/tblRgQEwafNAtehTE"
+        },
+        "filterByFormula": "={{ '{Employee_ID} = \"' + $json.body.employeeId + '\"' }}",
+        "options": {}
+      },
+      "id": "b60ab64e-b92a-41e5-a3bc-64368f790be0",
+      "name": "Fetch Employee Data",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        224,
+        0
+      ],
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "IkdoeP2BzvyN1K9o",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const baseSalary = $input.item.json.body.baseSalary || 0;\nconst unpaidLeaves = $('Fetch Employee Data').item.json.unpaidLeaves || 0;\nconst taxRate = 0.1; // 10% tax\n\nconst dailyRate = baseSalary / 30;\nconst grossPay = baseSalary;\nconst leaveDeduction = dailyRate * unpaidLeaves;\nconst taxableAmount = grossPay - leaveDeduction;\nconst taxDeduction = taxableAmount * taxRate;\nconst netPayable = taxableAmount - taxDeduction;\n\nreturn [{\n  json: {\n    employeeId: $input.item.json.body.employeeId,\n    employeeName: $('Fetch Employee Data').item.json.fields.Name || 'Employee',\n    month: $input.item.json.body.month,\n    baseSalary: baseSalary,\n    unpaidLeaves: unpaidLeaves,\n    grossPay: Math.round(grossPay * 100) / 100,\n    leaveDeduction: Math.round(leaveDeduction * 100) / 100,\n    taxDeduction: Math.round(taxDeduction * 100) / 100,\n    totalDeductions: Math.round((leaveDeduction + taxDeduction) * 100) / 100,\n    netPayable: Math.round(netPayable * 100) / 100\n  }\n}];"
+      },
+      "id": "3da5adfa-a58f-4b67-8f03-bc148e451a69",
+      "name": "Salary Calculation Engine",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=You are an HR Payroll Assistant. Based on the calculated Net Salary of {{ $json.netPayable }} and {{ $json.unpaidLeaves }} unpaid leaves, generate a short, professional 2-line remark for the employee's payslip (e.g., 'Salary processed successfully with 2 unpaid leave deductions. Keep up the good work!')."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "id": "69cafd3b-cd8c-4fdc-b0c9-58582f3474a9",
+      "name": "AI Payroll Assistant",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        672,
+        0
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "R7nqRWbajKv4DK31",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const salaryData = $('Salary Calculation Engine').item.json;\nconst aiRemarks = $json.message || '';\n\nconst html = `\n<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { font-family: Arial, sans-serif; margin: 40px; }\n    .header { text-align: center; margin-bottom: 30px; }\n    .company { font-size: 24px; font-weight: bold; color: #333; }\n    .payslip-title { font-size: 18px; color: #666; margin-top: 10px; }\n    .employee-info { margin: 20px 0; }\n    .info-row { display: flex; margin: 8px 0; }\n    .label { font-weight: bold; width: 200px; }\n    .value { color: #555; }\n    table { width: 100%; border-collapse: collapse; margin: 20px 0; }\n    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }\n    th { background-color: #f5f5f5; font-weight: bold; }\n    .total-row { font-weight: bold; font-size: 16px; background-color: #f0f0f0; }\n    .remarks { margin-top: 30px; padding: 15px; background-color: #f9f9f9; border-left: 4px solid #4CAF50; }\n    .footer { margin-top: 40px; text-align: center; color: #888; font-size: 12px; }\n  </style>\n</head>\n<body>\n  <div class=\"header\">\n    <div class=\"company\">Company Name</div>\n    <div class=\"payslip-title\">PAYSLIP - ${salaryData.month}</div>\n  </div>\n  \n  <div class=\"employee-info\">\n    <div class=\"info-row\">\n      <span class=\"label\">Employee ID:</span>\n      <span class=\"value\">${salaryData.employeeId}</span>\n    </div>\n    <div class=\"info-row\">\n      <span class=\"label\">Employee Name:</span>\n      <span class=\"value\">${salaryData.employeeName}</span>\n    </div>\n    <div class=\"info-row\">\n      <span class=\"label\">Month:</span>\n      <span class=\"value\">${salaryData.month}</span>\n    </div>\n  </div>\n\n  <table>\n    <tr>\n      <th>Description</th>\n      <th style=\"text-align: right;\">Amount</th>\n    </tr>\n    <tr>\n      <td>Base Salary</td>\n      <td style=\"text-align: right;\">₹${salaryData.baseSalary.toFixed(2)}</td>\n    </tr>\n    <tr>\n      <td>Gross Pay</td>\n      <td style=\"text-align: right;\">₹${salaryData.grossPay.toFixed(2)}</td>\n    </tr>\n    <tr>\n      <td>Leave Deduction (${salaryData.unpaidLeaves} days)</td>\n      <td style=\"text-align: right;\">-₹${salaryData.leaveDeduction.toFixed(2)}</td>\n    </tr>\n    <tr>\n      <td>Tax Deduction</td>\n      <td style=\"text-align: right;\">-₹${salaryData.taxDeduction.toFixed(2)}</td>\n    </tr>\n    <tr>\n      <td>Total Deductions</td>\n      <td style=\"text-align: right;\">-₹${salaryData.totalDeductions.toFixed(2)}</td>\n    </tr>\n    <tr class=\"total-row\">\n      <td>Net Payable</td>\n      <td style=\"text-align: right;\">₹${salaryData.netPayable.toFixed(2)}</td>\n    </tr>\n  </table>\n\n  <div class=\"remarks\">\n    <strong>AI Remarks:</strong><br/>\n    ${aiRemarks}\n  </div>\n\n  <div class=\"footer\">\n    This is a computer-generated payslip and does not require a signature.\n  </div>\n</body>\n</html>\n`;\n\nreturn [{\n  json: {\n    ...salaryData,\n    ai_response: aiRemarks,\n    html: html\n  }\n}];"
+      },
+      "id": "0c76a927-81ad-4688-9ffa-d39d2c69ba79",
+      "name": "Generate HTML Payslip",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1024,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "html",
+        "options": {
+          "fileName": "=payslip_{{ $json.employeeId }}_{{ $json.month }}.pdf"
+        }
+      },
+      "id": "2723bec1-f383-4a31-8587-f03d719b4b24",
+      "name": "Convert HTML to PDF",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1248,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "app9o13LWFe6tS1xU",
+          "mode": "list",
+          "cachedResultName": "Nurture Lead",
+          "cachedResultUrl": "https://airtable.com/app9o13LWFe6tS1xU"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblRgQEwafNAtehTE",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/app9o13LWFe6tS1xU/tblRgQEwafNAtehTE"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Fetch Employee Data').item.json.id }}",
+            "Net_Salary": "={{ $json.netPayable }}",
+            "Status": "Processed",
+            "Payslip_PDF": "={{ $binary.data }}"
+          }
+        },
+        "options": {
+          "typecast": false,
+          "updateAllMatches": false
+        }
+      },
+      "id": "8d9540b3-782c-4bb8-80d7-d090593c51ea",
+      "name": "Save & Finalize",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1472,
+        0
+      ],
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "IkdoeP2BzvyN1K9o",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"Status\": \"Success\",\n  \"Employee\": \"{{ $json.employeeName }}\",\n  \"Net_Salary\": \"{{ $json.netPayable }}\",\n  \"AI_Remarks\": \"{{ $json.ai_response }}\",\n  \"Payslip\": \"Generated & Saved\"\n}",
+        "options": {}
+      },
+      "id": "f442eeec-587d-40fb-9b74-3c862dc77b59",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1696,
+        0
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": { "main": [[{"node":"Fetch Employee Data","type":"main","index":0}]] },
+    "Fetch Employee Data": { "main": [[{"node":"Salary Calculation Engine","type":"main","index":0}]] },
+    "Salary Calculation Engine": { "main": [[{"node":"AI Payroll Assistant","type":"main","index":0}]] },
+    "AI Payroll Assistant": { "main": [[{"node":"Generate HTML Payslip","type":"main","index":0}]] },
+    "Generate HTML Payslip": { "main": [[{"node":"Convert HTML to PDF","type":"main","index":0}]] },
+    "Convert HTML to PDF": { "main": [[{"node":"Save & Finalize","type":"main","index":0}]] },
+    "Save & Finalize": { "main": [[{"node":"Respond to Webhook","type":"main","index":0}]] }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1", "binaryMode": "separate", "availableInMCP": false },
+  "versionId": "74c30d4d-3205-4f5e-95c4-73d308dddc8c",
+  "id": "WXx7SzfzvicW7pIX",
+  "tags": []
+}

@@ -6,19 +6,19 @@ const socialLinks = [
     icon: Linkedin,
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/tejass-shapra-48507b23a",
-    hover: "hover:bg-blue-500 hover:text-white"
+    hover: "hover:bg-blue-500 hover:text-text-main"
   },
   {
     icon: Github,
     label: "GitHub",
     href: "https://github.com/tejassapara61-stack",
-    hover: "hover:bg-gray-900 hover:text-white"
+    hover: "hover:bg-card hover:text-text-main"
   },
   {
     icon: Twitter,
     label: "Twitter/X",
     href: "https://twitter.com/tejasSapara09",
-    hover: "hover:bg-blue-400 hover:text-white"
+    hover: "hover:bg-blue-400 hover:text-text-main"
   }
 ];
 
@@ -28,7 +28,7 @@ const ContactPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-gray-50 px-6 py-20 text-slate-900 transition-colors duration-300 dark:bg-[#0a0a0a] dark:text-white">
+    <div className="min-h-screen w-full bg-gray-50 px-6 py-20 text-slate-900 transition-colors duration-300 dark:bg-card dark:text-text-main">
       <div className="mx-auto max-w-6xl">
         <div className="mb-16 text-center">
           <h1 className="text-4xl font-bold md:text-5xl">
@@ -41,7 +41,7 @@ const ContactPage = () => {
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           <div className="space-y-8">
-            <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-lg dark:border-gray-800 dark:bg-[#161616]">
+            <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-lg dark:border-borderline dark:bg-card">
               <h3 className="mb-6 text-2xl font-semibold">Contact Details</h3>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -49,7 +49,7 @@ const ContactPage = () => {
                     <Mail className="h-6 w-6" />
                   </div>
                   <div>
-                    <p className="font-medium text-slate-900 dark:text-white">Email</p>
+                    <p className="font-medium text-slate-900 dark:text-text-main">Email</p>
                     <a
                       href="mailto:tejassapara61@gmail.com"
                       className="text-slate-600 transition hover:text-blue-500 dark:text-slate-400"
@@ -64,13 +64,13 @@ const ContactPage = () => {
                     <MapPin className="h-6 w-6" />
                   </div>
                   <div>
-                    <p className="font-medium text-slate-900 dark:text-white">Location</p>
+                    <p className="font-medium text-slate-900 dark:text-text-main">Location</p>
                     <p className="text-slate-600 dark:text-slate-400">Gujarat, India (Available Remote)</p>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-8 border-t border-slate-200 pt-8 dark:border-gray-800">
+              <div className="mt-8 border-t border-slate-200 pt-8 dark:border-borderline">
                 <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
                   Connect on Socials
                 </p>
@@ -81,7 +81,7 @@ const ContactPage = () => {
                       href={link.href}
                       target="_blank"
                       rel="noreferrer"
-                      className={`rounded-full bg-gray-100 p-3 text-slate-700 transition-all dark:bg-gray-800 dark:text-slate-200 ${link.hover}`}
+                      className={`rounded-full bg-gray-100 p-3 text-slate-700 transition-all dark:bg-card dark:text-slate-200 ${link.hover}`}
                     >
                       <link.icon className="h-5 w-5" aria-hidden />
                       <span className="sr-only">{link.label}</span>
@@ -91,7 +91,7 @@ const ContactPage = () => {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-white shadow-xl">
+            <div className="rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-text-main shadow-xl">
               <h3 className="mb-2 flex items-center gap-2 text-xl font-bold">
                 <Calendar className="h-6 w-6" />
                 Skip the inbox?
@@ -100,7 +100,7 @@ const ContactPage = () => {
                 Jump straight into WhatsApp and lock in a 15-minute discovery call — we&apos;ll map opportunities and next steps.
               </p>
               <a
-                href="https://wa.me/917016611246?text=Hey%20Tejas%2C%20I%27d%20like%20to%20book%20a%20strategy%20call."
+                href="https://wa.me/917016611246?text=Hey%20Tejass%2C%20I%27d%20like%20to%20book%20a%20strategy%20call."
                 target="_blank"
                 rel="noreferrer"
                 className="block w-full rounded-lg bg-white py-3 text-center font-bold text-blue-600 shadow-md transition hover:bg-blue-50"
@@ -109,7 +109,7 @@ const ContactPage = () => {
               </a>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-lg dark:border-gray-800 dark:bg-[#161616]">
+            <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-lg dark:border-borderline dark:bg-card">
               <h3 className="text-xl font-semibold">What to expect</h3>
               <ul className="mt-4 space-y-3 text-slate-600 dark:text-slate-400">
                 <li>• A 24-hour response time on all inquiries.</li>
@@ -165,7 +165,7 @@ const ContactForm = () => {
 
   return (
     <form
-      className="rounded-2xl border border-slate-200 bg-white p-8 shadow-lg dark:border-gray-800 dark:bg-[#161616]"
+      className="rounded-2xl border border-slate-200 bg-white p-8 shadow-lg dark:border-borderline dark:bg-card"
       onSubmit={handleSubmit}
     >
       <h3 className="mb-6 text-2xl font-semibold">Send a Message</h3>
@@ -180,7 +180,7 @@ const ContactForm = () => {
               type="text"
               name="name"
               placeholder="John Doe"
-              className="w-full rounded-lg border border-slate-200 bg-gray-50 p-3 outline-none transition focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900"
+              className="w-full rounded-lg border border-slate-200 bg-gray-50 p-3 outline-none transition focus:ring-2 focus:ring-blue-500 dark:border-borderline dark:bg-card"
               required
             />
           </div>
@@ -193,7 +193,7 @@ const ContactForm = () => {
               type="email"
               name="email"
               placeholder="john@company.com"
-              className="w-full rounded-lg border border-slate-200 bg-gray-50 p-3 outline-none transition focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900"
+              className="w-full rounded-lg border border-slate-200 bg-gray-50 p-3 outline-none transition focus:ring-2 focus:ring-blue-500 dark:border-borderline dark:bg-card"
               required
             />
           </div>
@@ -206,7 +206,7 @@ const ContactForm = () => {
           <select
             id="project-type"
             name="projectType"
-            className="w-full rounded-lg border border-slate-200 bg-gray-50 p-3 outline-none transition focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900"
+            className="w-full rounded-lg border border-slate-200 bg-gray-50 p-3 outline-none transition focus:ring-2 focus:ring-blue-500 dark:border-borderline dark:bg-card"
             defaultValue=""
             required
           >
@@ -229,14 +229,14 @@ const ContactForm = () => {
             name="message"
             rows={4}
             placeholder="I want to automate my customer support..."
-            className="w-full rounded-lg border border-slate-200 bg-gray-50 p-3 outline-none transition focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900"
+            className="w-full rounded-lg border border-slate-200 bg-gray-50 p-3 outline-none transition focus:ring-2 focus:ring-blue-500 dark:border-borderline dark:bg-card"
             required
           ></textarea>
         </div>
 
         <button
           type="submit"
-          className="w-full rounded-lg bg-blue-600 py-4 font-bold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
+          className="w-full rounded-lg bg-blue-600 py-4 font-bold text-text-main shadow-lg shadow-blue-500/20 transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
           disabled={status === "loading"}
         >
           {status === "loading" ? "Sending..." : "Send Message"}

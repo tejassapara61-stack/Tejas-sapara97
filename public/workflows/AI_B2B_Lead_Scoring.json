@@ -1,0 +1,703 @@
+{
+  "name": "AI-Powered B2B Lead Scoring with Automated Outreach and Sales Routing",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://api.apify.com/v2/acts/pipelinelabs~lead-scraper-apollo-zoominfo-lusha/run-sync-get-dataset-items?token=YOUR_APIFY_API_TOKEN",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"emailStatus\": \"verified\",\n  \"hasEmail\": true,\n  \"hasPhone\": true,\n  \"personLocationCountryIncludes\": [\"United States\", \"India\"],\n  \"personTitleIncludes\": [\"Chief Technology Officer\", \"Founder\", \"Director\", \"Manager\"],\n  \"maxItems\": 1\n}",
+        "options": {}
+      },
+      "id": "6593841d-6e4b-46ff-9d3c-ae4ffa8f0c73",
+      "name": "Fetch Lead Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -1024,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Lead Information:\nName: {{ $json.fullName }}\nEmail: {{ $('Fetch Lead Data').item.json.email }}\nfunctional : {{ $json.functional }}\nIndustry: {{ $json.functional }}\nJob Title:{{ $('Fetch Lead Data').item.json.position }}\nPhone: {{ $('Fetch Lead Data').item.json.phone }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are an expert B2B lead scoring AI agent. Your task is to analyze lead information and provide a comprehensive assessment.\n\n### INPUT DATA\nYou will receive a Lead Profile. Note: If 'Company Name' was missing, it may have been inferred from the email domain. Treat this as a valid company.\n\n### SCORING GUIDELINES\n- Score 80-100: HUMAN_HANDOFF (High-value prospects, C-Level/VP, Strong Industry Fit, Revenue > $50M)\n- Score 40-79: NURTURE_READY (Directors/Managers, Good Fit, Needs Education)\n- Score 0-39: LOW_PRIORITY (Poor fit, No decision power, or small generic business)\n\n### ANALYSIS STEPS\n1. **Industry Fit:** Match against target sectors (SaaS, BFSI, Retail, Hospitality).\n2. **Role Authority:** Check for decision-making power (CEO vs Intern).\n3. **Pain Points:** Infer likely challenges based on their industry.\n\n### OUTPUT FORMAT (JSON)\n{\n  \"lead_score\": number,\n  \"lead_state\": \"HUMAN_HANDOFF\" | \"NURTURE_READY\" | \"LOW_PRIORITY\",\n  \"reasoning\": \"string\",\n  \"messaging_strategy\": \"string\",\n  \"pain_points\": [\"string\", \"string\"],\n  \"next_action\": \"string\"\n}"
+        }
+      },
+      "id": "85f8dc08-577d-4511-bf93-d963e0b8240d",
+      "name": "AI Lead Scoring Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -752,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "id": "ce881775-aea1-481d-b0e8-0d2e72f5633b",
+      "name": "OpenAI GPT-4",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -784,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"lead_score\": 85,\n  \"lead_state\": \"HUMAN_HANDOFF\",\n  \"reasoning\": \"High-value prospect with strong fit\",\n  \"messaging_strategy\": \"Focus on ROI and scalability benefits\",\n  \"pain_points\": [\"Legacy systems\", \"Manual processes\"],\n  \"next_action\": \"Schedule demo call\"\n}"
+      },
+      "id": "d6d63dfe-d2ef-4898-9392-36e8e0d78a0f",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -496,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.lead_score }}",
+                    "rightValue": 80,
+                    "operator": {
+                      "type": "number",
+                      "operation": "gte"
+                    },
+                    "id": "76ecc4f3-2190-4c60-b9d3-99a8b7b9da2a"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "High Score (80+)"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.lead_score }}",
+                    "rightValue": 40,
+                    "operator": {
+                      "type": "number",
+                      "operation": "gte"
+                    },
+                    "id": "196b1530-b0e1-4a63-9941-7751489697dc"
+                  },
+                  {
+                    "leftValue": "={{ $json.lead_score }}",
+                    "rightValue": 80,
+                    "operator": {
+                      "type": "number",
+                      "operation": "lt"
+                    },
+                    "id": "c33e9d28-8d32-4556-9eda-0db23bd262ff"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Medium Score (40-79)"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.lead_score }}",
+                    "rightValue": 40,
+                    "operator": {
+                      "type": "number",
+                      "operation": "lt"
+                    },
+                    "id": "599b3d91-3383-45af-b7ae-31cc205d4d38"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Low Score (<40)"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1bd782ec-b0bc-4f4a-add6-13c9061fd2f9",
+      "name": "Route by Score",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -224,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "email": "={{ $json.email }}",
+        "additionalFields": {
+          "companyName": "={{ $json.company }}",
+          "firstName": "={{ $json.name.split(\" \")[0] }}",
+          "jobTitle": "={{ $json.jobTitle }}",
+          "lastName": "={{ $json.name.split(\" \")[1] }}",
+          "leadStatus": "OPEN",
+          "lifeCycleStage": "salesqualifiedlead",
+          "phoneNumber": "={{ $json.phone }}"
+        },
+        "options": {}
+      },
+      "id": "af165539-cd96-4292-b0f2-77a8a157ee0b",
+      "name": "Create/Update HubSpot Contact - High Score",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('Workflow Configuration').first().json.slackChannel }}"
+        },
+        "text": "=🔥 *HOT LEAD DETECTED - IMMEDIATE ACTION REQUIRED*\n\n*Lead Details:*\n• Name: {{ $json.name }}\n• Company: {{ $json.company }}\n• Title: {{ $json.jobTitle }}\n• Email: {{ $json.email }}\n• Phone: {{ $json.phone }}\n\n*AI Assessment:*\n• Score: {{ $json.lead_score }}/100\n• State: {{ $json.lead_state }}\n• Reasoning: {{ $json.reasoning }}\n\n*Recommended Strategy:*\n{{ $json.messaging_strategy }}\n\n*Pain Points:*\n{{ $json.pain_points.join(\", \") }}\n\n*Next Action:*\n{{ $json.next_action }}\n\n_This lead has been added to HubSpot as a Sales Qualified Lead._",
+        "otherOptions": {}
+      },
+      "id": "1b6588f0-032a-4eff-a530-9c2cf20c606f",
+      "name": "Send Slack Alert - Hot Lead",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        224,
+        384
+      ],
+      "webhookId": "ec4dc6dd-b2ba-4434-b72f-bf93736b1aee"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "email": "={{ $json.email }}",
+        "additionalFields": {
+          "companyName": "={{ $json.company }}",
+          "firstName": "={{ $json.name.split(\" \")[0] }}",
+          "jobTitle": "={{ $json.jobTitle }}",
+          "lastName": "={{ $json.name.split(\" \")[1] }}",
+          "leadStatus": "IN_PROGRESS",
+          "lifeCycleStage": "marketingqualifiedlead",
+          "phoneNumber": "={{ $json.phone }}"
+        },
+        "options": {}
+      },
+      "id": "731df2a6-fbf0-40fe-bf8f-0b7f4e443563",
+      "name": "Create/Update HubSpot Contact - Medium Score",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "=Quick question about {{ $json.company }}",
+        "message": "=Hi {{ $json.name.split(\" \")[0] }},\n\n<p>I noticed you're the {{ $json.jobTitle }} at {{ $json.company }}, and I thought you might be interested in learning how companies in the {{ $json.industry }} industry are addressing some common challenges.</p>\n\n<p><strong>Based on our research, many {{ $json.industry }} leaders are facing:</strong></p>\n<ul>\n{{ $json.pain_points.map(point => `<li>${point}</li>`).join(\"\\n\") }}\n</ul>\n\n<p>{{ $json.messaging_strategy }}</p>\n\n<p>Would you be open to a brief conversation about how we've helped similar companies overcome these challenges?</p>\n\n<p>Best regards,<br>\nYour Sales Team</p>\n\n<p style=\"font-size: 11px; color: #666;\">P.S. This email was personalized based on your company profile and industry trends.</p>",
+        "options": {}
+      },
+      "id": "bf56b053-62c5-404a-a4ff-d1d4430cf365",
+      "name": "Send Nurture Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        192
+      ],
+      "webhookId": "1432c4e1-7f09-4d9b-891c-bab95eb97468"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "email": "={{ $json.email }}",
+        "additionalFields": {
+          "companyName": "={{ $json.company }}",
+          "firstName": "={{ $json.name.split(\" \")[0] }}",
+          "jobTitle": "={{ $json.jobTitle }}",
+          "lastName": "={{ $json.name.split(\" \")[1] }}",
+          "leadStatus": "UNQUALIFIED",
+          "lifeCycleStage": "lead",
+          "phoneNumber": "={{ $json.phone }}"
+        },
+        "options": {}
+      },
+      "id": "62d0f2a2-01fc-48fd-ba23-930ceb15f544",
+      "name": "Create/Update HubSpot Contact - Low Score",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "id-1",
+              "name": "highScoreThreshold",
+              "value": 80,
+              "type": "number"
+            },
+            {
+              "id": "id-2",
+              "name": "mediumScoreThreshold",
+              "value": 40,
+              "type": "number"
+            },
+            {
+              "id": "id-3",
+              "name": "slackChannel",
+              "value": "#sales-leads",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "75746987-a8ad-4194-8581-a806c67be8ff",
+      "name": "Workflow Configuration",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1248,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "470662e1-58fa-4570-99a5-49e9f8af7a2a",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -1472,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "base": {
+          "__rl": true,
+          "value": "appeLhNi4kKPK8mkX",
+          "mode": "list",
+          "cachedResultName": "Cervoa V2",
+          "cachedResultUrl": "https://airtable.com/appeLhNi4kKPK8mkX"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblyDpgafemxe3efi",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://airtable.com/appeLhNi4kKPK8mkX/tblyDpgafemxe3efi"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email Verified": true,
+            "Lead Score": "={{ $json.output.lead_score }}",
+            "Apollo Data": "=",
+            "reasoning": "={{ $json.output.reasoning }}",
+            "messaging_strategy": "={{ $json.output.messaging_strategy }}",
+            "pain_points ": "={{ $json.output.pain_points[0] }} and {{ $json.output.pain_points[1] }}",
+            "Full Name": "={{ $('Fetch Lead Data').item.json.fullName }}",
+            "Email": "={{ $('Fetch Lead Data').item.json.email }}",
+            "Status": "NEW",
+            "Industry": "SaaS"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "NEW",
+                  "value": "NEW"
+                },
+                {
+                  "name": "ENRICHED",
+                  "value": "ENRICHED"
+                },
+                {
+                  "name": "NURTURE_READY",
+                  "value": "NURTURE_READY"
+                },
+                {
+                  "name": "OUTREACH_OPT_IN",
+                  "value": "OUTREACH_OPT_IN"
+                },
+                {
+                  "name": "ENGAGED",
+                  "value": "ENGAGED"
+                },
+                {
+                  "name": "MEETING_BOOKED",
+                  "value": "MEETING_BOOKED"
+                },
+                {
+                  "name": "HUMAN_HANDOFF",
+                  "value": "HUMAN_HANDOFF"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Lead Score",
+              "displayName": "Lead Score",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Industry",
+              "displayName": "Industry",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "SaaS",
+                  "value": "SaaS"
+                },
+                {
+                  "name": "BFSI",
+                  "value": "BFSI"
+                },
+                {
+                  "name": "Hospitality",
+                  "value": "Hospitality"
+                },
+                {
+                  "name": "Retail",
+                  "value": "Retail"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Company Size",
+              "displayName": "Company Size",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email Verified",
+              "displayName": "Email Verified",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Apollo Data",
+              "displayName": "Apollo Data",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "reasoning",
+              "displayName": "reasoning",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "messaging_strategy",
+              "displayName": "messaging_strategy",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pain_points ",
+              "displayName": "pain_points ",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -432,
+        192
+      ],
+      "id": "44c81b9b-f439-4665-9aa7-98d97ceb023f",
+      "name": "Create or update a record1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Fetch Lead Data": {
+      "main": [
+        [
+          {
+            "node": "AI Lead Scoring Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI GPT-4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Lead Scoring Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Lead Scoring Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Lead Scoring Agent": {
+      "main": [
+        [
+          {
+            "node": "Create or update a record1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by Score": {
+      "main": [
+        [
+          {
+            "node": "Create/Update HubSpot Contact - High Score",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create/Update HubSpot Contact - Medium Score",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create/Update HubSpot Contact - Low Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create/Update HubSpot Contact - High Score": {
+      "main": [
+        [
+          {
+            "node": "Send Slack Alert - Hot Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create/Update HubSpot Contact - Medium Score": {
+      "main": [
+        [
+          {
+            "node": "Send Nurture Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Workflow Configuration": {
+      "main": [
+        [
+          {
+            "node": "Fetch Lead Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Workflow Configuration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create or update a record1": {
+      "main": [
+        [
+          {
+            "node": "Route by Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "1c238104-7709-42d8-b358-c021b21d3632",
+  "meta": {
+    "instanceId": "68b3f0f6e7cfbfd0688ed65eb600db8acb1fb50140fe3266d7a7378f703c940f"
+  },
+  "id": "p46dKogGBEZGCoif",
+  "tags": []
+}

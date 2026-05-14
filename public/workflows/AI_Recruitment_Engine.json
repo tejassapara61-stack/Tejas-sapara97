@@ -1,0 +1,723 @@
+{
+  "name": "AI Recruitment Engine",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "AI Recruitment Engine",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -144,
+        304
+      ],
+      "id": "398e7c75-b814-4caf-abd9-7ff264cfc3d0",
+      "name": "Webhook",
+      "webhookId": "03438ac2-e7ad-4bc8-8cf7-e659ab67c3ca"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/apify~google-search-scraper/run-sync-get-dataset-items?token=YOUR_APIFY_API_TOKEN",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"queries\": \"site:linkedin.com/in/ \\\"{{ $('Webhook').item.json.body.job_role }}\\\" \\\"{{ $('Webhook').item.json.body.location }}\\\"\",\n  \"maxPagesPerQuery\": 1,\n  \"resultsPerPage\": 10,\n  \"countryCode\": \"in\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        304,
+        304
+      ],
+      "id": "8c15fd6e-ce6c-460f-ac7b-f460fd84368b",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "06056908-3f27-4280-ab3e-053b7cc9e2a2",
+              "name": "job_role",
+              "value": "={{ $json.body.job_role }}",
+              "type": "string"
+            },
+            {
+              "id": "b98ceed8-ae29-43c2-afb3-198199747f7a",
+              "name": "location",
+              "value": "={{ $json.body.location }}",
+              "type": "string"
+            },
+            {
+              "id": "97eb8a8e-b515-4445-b8a5-1f96ec16e035",
+              "name": "work_mode",
+              "value": "={{ $json.body.work_mode }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        80,
+        304
+      ],
+      "id": "1f062d0a-de88-415a-8a09-bc6457d3c8b1",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "=organicResults",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        528,
+        304
+      ],
+      "id": "2c1238ba-e144-4897-bd80-680af99e1f96",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.fields['Candidate Name'] }}\n{{ $json.fields['Raw Bio / Snippet'] }}\n{{ $json.fields['Job Role'] }}",
+        "options": {
+          "systemMessage": "You are an elite Executive Talent Acquisition Specialist for CoreNexa SaaS.\nYour ONLY job is to critically evaluate a candidate's raw bio strictly against the specific \"Job Role\" requested in the prompt.\n\nEVALUATION RULES:\n\nDYNAMIC SCORING: First, analyze the requested \"Job Role\". If it is a technical role (e.g., Developer), look for coding frameworks. If it is a management/leadership role (e.g., Product Manager, HR), look for strategy, product lifecycle, and high-tier education (like IIM, IIT).\n\nCalculate a \"match_score\" strictly between 0 and 100 based on how well the bio fits the SPECIFIC requested role.\n\nAssign a \"verdict\". Choose ONLY ONE: [\"Excellent\", \"Strong\", \"Potential\", \"Not Recommended\"].\n\nExtract a \"skills\" array of up to 5 key skills highly relevant to the role (e.g., [\"Product Strategy\", \"Agile\", \"GenAI\"] for a PM, or [\"Python\", \"Django\"] for a Dev).\n\nWrite an \"ai_reasoning\" under 20 words explaining the score.\n\nSTRICT OUTPUT SCHEMA:\nYou MUST output ONLY valid JSON. Do not include markdown (like ```json).\n{\n\"candidate_name\": \"Name\",\n\"match_score\": 85,\n\"verdict\": \"Strong\",\n\"skills\": [\"Skill1\", \"Skill2\"],\n\"ai_reasoning\": \"Strong product management background with excellent pedigree, but lacks direct AI tool experience.\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        864,
+        736
+      ],
+      "id": "ab367479-912a-4256-a885-19bf6d4e8ec4",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.1-8b-instant",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        864,
+        976
+      ],
+      "id": "646ed4b6-f256-4710-baa2-27216367b1de",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "waf0hD9RYAAY5eGa",
+          "name": "Groq account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "base": {
+          "__rl": true,
+          "value": "appQlav9WroK1lv7Y",
+          "mode": "list",
+          "cachedResultName": "AI Recruitment Engine",
+          "cachedResultUrl": "https://airtable.com/appQlav9WroK1lv7Y"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblPUmQws76mHwSu8",
+          "mode": "list",
+          "cachedResultName": "Table 1 copy",
+          "cachedResultUrl": "https://airtable.com/appQlav9WroK1lv7Y/tblPUmQws76mHwSu8"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Candidate Name": "={{ $json[\"Candidate Name\"] }}",
+            "Name": "={{ $json[\"Candidate Name\"] }}",
+            "Match Score": "={{ $json[\"Match Score\"] }}",
+            "Verdict": "={{ $json.Verdict }}",
+            "Skills": "={{ $json.Skills }}",
+            "AI Reasoning": "={{ $json[\"AI Reasoning\"] }}",
+            "Status": "Scored",
+            "id": "={{ $('Loop Over Items').item.json.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Candidate Name",
+              "displayName": "Candidate Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "LinkedIn URL",
+              "displayName": "LinkedIn URL",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Raw Bio / Snippet",
+              "displayName": "Raw Bio / Snippet",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Job Role",
+              "displayName": "Job Role",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Match Score",
+              "displayName": "Match Score",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "companyName",
+              "displayName": "companyName",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Verdict",
+              "displayName": "Verdict",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Skills",
+              "displayName": "Skills",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "AI Reasoning",
+              "displayName": "AI Reasoning",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1744,
+        912
+      ],
+      "id": "e17d0778-0ae8-4dba-abd6-a86b4e65bce6",
+      "name": "Create or update a record1",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "IkdoeP2BzvyN1K9o",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b4fc6599-ebd1-469c-9c70-db00ca8ab10c",
+              "name": "Candidate Name",
+              "value": "={{ JSON.parse($json.output).candidate_name }}",
+              "type": "string"
+            },
+            {
+              "id": "fff3e605-adde-4468-99e3-54c2f5784816",
+              "name": "Match Score",
+              "value": "={{ JSON.parse($json.output).match_score }}",
+              "type": "string"
+            },
+            {
+              "id": "d409280d-6654-4143-a17d-a412026ce532",
+              "name": "Verdict",
+              "value": "={{ JSON.parse($json.output).verdict }}",
+              "type": "string"
+            },
+            {
+              "id": "58316682-9752-48fa-b705-49d575ad23d0",
+              "name": "Skills",
+              "value": "={{ JSON.parse($json.output).skills.join(', ') }}",
+              "type": "string"
+            },
+            {
+              "id": "e73f24ca-c06e-4633-8a6f-5c824b52fa25",
+              "name": "AI Reasoning",
+              "value": "={{ JSON.parse($json.output).ai_reasoning }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1472,
+        960
+      ],
+      "id": "58f8f16c-dd66-4d77-97c2-ccbfe46dc7b8",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "base": {
+          "__rl": true,
+          "value": "appQlav9WroK1lv7Y",
+          "mode": "list",
+          "cachedResultName": "AI Recruitment Engine",
+          "cachedResultUrl": "https://airtable.com/appQlav9WroK1lv7Y"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblPUmQws76mHwSu8",
+          "mode": "list",
+          "cachedResultName": "Table 1 copy",
+          "cachedResultUrl": "https://airtable.com/appQlav9WroK1lv7Y/tblPUmQws76mHwSu8"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Match Score": 0,
+            "Candidate Name": "={{ $json.title }}",
+            "LinkedIn URL": "={{ $json.url }}",
+            "Raw Bio / Snippet": "={{ $json.description }}",
+            "Job Role": "={{ $('Edit Fields').item.json.job_role }}",
+            "Status": "Pending"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Candidate Name",
+              "displayName": "Candidate Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "LinkedIn URL",
+              "displayName": "LinkedIn URL",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Raw Bio / Snippet",
+              "displayName": "Raw Bio / Snippet",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Job Role",
+              "displayName": "Job Role",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Match Score",
+              "displayName": "Match Score",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "companyName",
+              "displayName": "companyName",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Verdict",
+              "displayName": "Verdict",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Skills",
+              "displayName": "Skills",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "AI Reasoning",
+              "displayName": "AI Reasoning",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        752,
+        304
+      ],
+      "id": "48c73b33-ad94-4c48-9b05-57c0cd219d36",
+      "name": "upload record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "IkdoeP2BzvyN1K9o",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2080,
+        944
+      ],
+      "id": "e89352e9-422f-4b49-86f5-40a8bbaedd30",
+      "name": "Wait",
+      "webhookId": "7a98274f-5807-46ce-86e2-0bb74047353a"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        480,
+        832
+      ],
+      "id": "22856689-1afb-4ab4-91da-5b19082b97f7",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        3008,
+        944
+      ],
+      "id": "6f6e06e6-f680-4069-ae10-959bdd06db9c",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "upload record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Create or update a record1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "upload record": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create or update a record1": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "a6ca0eed-73a7-425d-a4b5-2036f56cfe66",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "68b3f0f6e7cfbfd0688ed65eb600db8acb1fb50140fe3266d7a7378f703c940f"
+  },
+  "id": "Ql29PMqVzHVQjFSv",
+  "tags": []
+}

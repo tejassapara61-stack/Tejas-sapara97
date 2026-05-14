@@ -1,0 +1,2234 @@
+{
+  "name": "noblebot",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Z9QfW7ti6Fx0NOAwFqL5mHzfPwzLWW1bJTm6PQUIGnw",
+          "mode": "list",
+          "cachedResultName": "Scholarships Sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Z9QfW7ti6Fx0NOAwFqL5mHzfPwzLWW1bJTm6PQUIGnw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 18168696,
+          "mode": "list",
+          "cachedResultName": "Fees_Scholarships Sheet: same as",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Z9QfW7ti6Fx0NOAwFqL5mHzfPwzLWW1bJTm6PQUIGnw/edit#gid=18168696"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -1424,
+        1280
+      ],
+      "id": "becc290d-757e-4f30-a927-30c1649cebc0",
+      "name": "scholarships",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WKJi0uzMgZGIh3UY1-BQ72rSkAsjig6EJk-ZBz_C4XQ",
+          "mode": "list",
+          "cachedResultName": " Departmental Contact Directory",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WKJi0uzMgZGIh3UY1-BQ72rSkAsjig6EJk-ZBz_C4XQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 55564132,
+          "mode": "list",
+          "cachedResultName": "Admissions_Contacts Sheet:",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WKJi0uzMgZGIh3UY1-BQ72rSkAsjig6EJk-ZBz_C4XQ/edit#gid=55564132"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -1296,
+        1280
+      ],
+      "id": "70a0ca67-2ed0-4310-9d7a-9cb2c459a8b3",
+      "name": "departmental",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "15mBASisEokE8zZewqYNkR3blf8xC3JvNACcRNAmVCEA",
+          "mode": "list",
+          "cachedResultName": "Campus_Facilities Sheet:",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mBASisEokE8zZewqYNkR3blf8xC3JvNACcRNAmVCEA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 741202027,
+          "mode": "list",
+          "cachedResultName": "Campus_Facilities Sheet:",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mBASisEokE8zZewqYNkR3blf8xC3JvNACcRNAmVCEA/edit#gid=741202027"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -1168,
+        1280
+      ],
+      "id": "c0d70ed2-c846-4919-b23e-408c695a3d55",
+      "name": "campus_facilities",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1RmJ3sIuRmUe-Kh2KFZBKFzM-xCB9Z1iB45Ct5aUrjlQ",
+          "mode": "list",
+          "cachedResultName": "Required Documents",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RmJ3sIuRmUe-Kh2KFZBKFzM-xCB9Z1iB45Ct5aUrjlQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1752295120,
+          "mode": "list",
+          "cachedResultName": "Required Documents make it sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RmJ3sIuRmUe-Kh2KFZBKFzM-xCB9Z1iB45Ct5aUrjlQ/edit#gid=1752295120"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -1024,
+        1328
+      ],
+      "id": "f458cc2a-1561-416a-ad72-d3d464980ac5",
+      "name": "required_documents",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1XgUiIIGF3nLCCrWJ1uYxnVMH3QKJ-SKFemwQLDqz1xQ",
+          "mode": "list",
+          "cachedResultName": "Fees",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XgUiIIGF3nLCCrWJ1uYxnVMH3QKJ-SKFemwQLDqz1xQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 757431255,
+          "mode": "list",
+          "cachedResultName": "Fees_Scholarships Sheet: same as",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XgUiIIGF3nLCCrWJ1uYxnVMH3QKJ-SKFemwQLDqz1xQ/edit#gid=757431255"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -896,
+        1312
+      ],
+      "id": "1d119181-951f-46d6-bf79-e1434faaa88f",
+      "name": "financial_information",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1qtsh1geshaS_sclPp2hZj9RCYbyHjMaOBcovKIaYznw",
+          "mode": "list",
+          "cachedResultName": "Programs Sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qtsh1geshaS_sclPp2hZj9RCYbyHjMaOBcovKIaYznw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1366011043,
+          "mode": "list",
+          "cachedResultName": "Programs Sheet: make it",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qtsh1geshaS_sclPp2hZj9RCYbyHjMaOBcovKIaYznw/edit#gid=1366011043"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -784,
+        1280
+      ],
+      "id": "69e64d2e-987b-4993-9fc2-efb449089e19",
+      "name": "program_details",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -448,
+        1056
+      ],
+      "id": "312512ef-43c8-42f6-ad53-e4464aceb543",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "noblebot",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -2128,
+        912
+      ],
+      "id": "f98287f3-7e72-4dd4-8040-0f6caa01bb81",
+      "name": "Webhook",
+      "webhookId": "2f0f8fc6-4a2d-4073-a95f-5def85dd7766"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.text }}{{ $json.body.new_message }}",
+        "options": {
+          "systemMessage": "#### **1. Identity & Persona**\nYou are **Mahi**, the senior AI Admission Counselor for **Noble University**.\n* **Tone:** Professional, warm, encouraging, and trustworthy.\n* **Mission:** Answer questions accurately and encourage students to **book a campus visit**.\n* **Language Strategy:** Detect the user's language (English, Gujarati, or Gujlish) and reply in the **exact same language**.\n\n----\n\n#### **2. Core Logic: The \"No-List\" Strategy (CRITICAL)**\n\n**Rule 1: Handling \"All Programs\" (The Main Menu)**\nIf asked \"Tell me about all programs\":\n* **Answer:** \"We offer comprehensive programs across 8 major faculties including Engineering, Medical, IT, and Management.\"\n* **Suggestions:** `[\"Engineering Programs\", \"Management & Commerce\", \"Computer Science (IT)\", \"Pharmacy & Medical\"]`\n\n**Rule 2: Handling Categories (The Sub-Menu)**\nIf the user selects a category (e.g., \"Computer Science\" or \"Management\"):\n* **Answer:** Write a **comma-separated sentence**. DO NOT use bullet points, newlines, or headers like \"Undergraduate/Postgraduate\".\n    * *Bad:* \"We offer:\\n * B.Tech\\n * BCA\"\n    * *Good:* \"In Computer Science, we offer **B.Tech, BCA, B.Sc IT, and MCA**. Which specific course details would you like?\"\n* **Suggestions:** List the specific courses or next steps.\n    * *Example:* `[\"B.Tech Details\", \"BCA Fees\", \"MCA Admission\"]`\n\n----\n\n#### **3. Available Tools**\nYou must use these tools to find information. **Input for all tools must be a search query string.**\n\n* `get_program_details`: Search for syllabus, duration, intake, and eligibility.\n* `get_financial_information`: Search for tuition fees and scholarship details.\n* `get_campus_facilities`: Search for hostels, canteen, library, and transport.\n* `get_required_documents`: Search for the admission document checklist.\n* `get_admission_timeline`: Search for dates and deadlines.\n* `get_contact_details`: Search for phone numbers/emails.\n\n----\n\n#### **4. Response Guidelines & Output Format**\n\nYour final output must **ALWAYS** be a JSON object.\n\n**Option A: Standard Answer**\n* **STRICT RULE:** The `answer` value must be a **single paragraph of plain text**.\n* **FORBIDDEN:** Do not use `\\n` (newlines), `*` (asterisks), or `-` (dashes) inside the answer string.\n\n```json\n{\n  \"answer\": \"Your plain-text summary here. Keep it under 40 words.\",\n  \"suggestions\": [\n    \"Option 1\",\n    \"Option 2\",\n    \"Option 3\"\n  ]\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -1232,
+        1056
+      ],
+      "id": "c4df97ab-04a1-4b42-b639-ff7923badc26",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5f79aa0f-e4dc-422b-a18c-9d857d84b0f2",
+              "name": "body",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1168,
+        768
+      ],
+      "id": "a102c8ef-2b88-4bce-9c76-b4123ee71531",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.body.action}}",
+                    "rightValue": "submit_inquiry_form",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "5fd94b3a-3d98-4798-ae04-d13bd012f0ca"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "7e652efe-bfb1-4fd6-a3f7-905c0613717a",
+                    "leftValue": "={{ $json.body.new_message }}{{ $json.body.text }}",
+                    "rightValue": "ask_question",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1904,
+        912
+      ],
+      "id": "3f389e03-774d-4ca9-a5de-bf9f2bf6eb39",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1iVrgDq86c8egy8VB5cnVbE7xAMKMAm-PEMlcYBI0-A4",
+          "mode": "list",
+          "cachedResultName": " Admission Timeline (2025-2026)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1iVrgDq86c8egy8VB5cnVbE7xAMKMAm-PEMlcYBI0-A4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 383651810,
+          "mode": "list",
+          "cachedResultName": "Admissions_Contacts Sheet:",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1iVrgDq86c8egy8VB5cnVbE7xAMKMAm-PEMlcYBI0-A4/edit#gid=383651810"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -656,
+        1280
+      ],
+      "id": "3d0b1863-7887-4a3b-a91c-f3cb70f4d66e",
+      "name": "admission_timeline",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{$json.body.user_id}}{{$json.body.history}}{{ $json.body.new_message }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -1552,
+        1280
+      ],
+      "id": "444a6a94-dc8d-4a88-bbea-088a803d6400",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the incoming form data from the first input item\nconst formData = items[0].json.body;\n\n// Get the program name from the form and convert it to lowercase for easy matching\nconst program = formData.program.toLowerCase();\n\n// Set a default department if no match is found\nlet department = 'Other'; \n\n// --- Logic to determine the department based on your full program list ---\n\n// 1. Engineering & Technology\nif (program.includes('diploma in engineering') || program.includes('b.tech') || program.includes('m.tech')) {\n  department = 'Engineering & Technology';\n} \n// 2. Pharmacy & Allied Health\nelse if (program.includes('b.pharm') || program.includes('m.pharm') || program.includes('bams') || program.includes('bhms')) {\n  department = 'Pharmacy & Allied Health';\n} \n// 3. Nursing\nelse if (program.includes('anm') || program.includes('gnm') || program.includes('b.sc. nursing') || program.includes('p.b.b.sc. nursing')) {\n  department = 'Nursing';\n}\n// 4. Science & Comp. Apps.\nelse if (program.includes('b.sc.') || program.includes('bca') || program.includes('m.sc.') || program.includes('mca') || program.includes('imca') || program.includes('dmlt')) {\n  department = 'Science & Comp. Apps.';\n}\n// 5. Management & Commerce\nelse if (program.includes('bba') || program.includes('b.com') || program.includes('mba') || program.includes('m.com') || program.includes('imba') || program.includes('bms')) {\n  department = 'Management & Commerce';\n}\n// 6. Arts & Education\nelse if (program.includes('b.a.') || program.includes('b.ed')) {\n  department = 'Arts & Education';\n}\n// 7. Library Science\nelse if (program.includes('b.lib.i.sc.') || program.includes('m.lib.i.sc.')) {\n  department = 'Library Science';\n}\n// 8. Vocational Studies\nelse if (program.includes('b.voc') || program.includes('m.voc')) {\n  department = 'Vocational Studies';\n}\n// 9. Doctoral Studies (for Ph.D.)\nelse if (program.includes('ph.d.')) {\n  department = 'Doctoral Studies';\n}\n\n// Add the new, clean 'department' field to the data\nformData.department = department;\n\n// Return all the original data, plus our new field, for the next node to use\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -448,
+        768
+      ],
+      "id": "15b11696-cd01-4638-b8c8-be52dee326a7",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.department }}",
+                    "rightValue": "Science & Comp. Apps.",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "7c295b45-ca54-4336-8aa0-7d335e376236"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a589bd3d-3829-4c6b-b2c0-e3476db28ce5",
+                    "leftValue": "={{ $json.body.department }}",
+                    "rightValue": "Management & Commerce",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "40700143-255d-4dfa-a44f-6a6931dba03b",
+                    "leftValue": "={{ $json.body.department }}",
+                    "rightValue": "Engineering & Technology",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6e72b4b7-b842-4b1d-9e69-2877e5843fd2",
+                    "leftValue": "={{ $json.body.department }}",
+                    "rightValue": "Pharmacy & Allied Health",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "7f4296f2-1a57-4ff2-a72e-cd69b9668409",
+                    "leftValue": "={{ $json.body.department }}",
+                    "rightValue": "Nursing",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b87b4b26-1e06-497e-a895-3223eb07cf30",
+                    "leftValue": "={{ $json.body.department }}",
+                    "rightValue": "Arts & Education",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "dd329f82-2a8a-4443-b8eb-8295cd3c4930",
+                    "leftValue": "={{ $json.body.department }}",
+                    "rightValue": "Library Science",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f18657ee-1786-42ec-b5f4-b12f14928596",
+                    "leftValue": "={{ $json.body.department }}",
+                    "rightValue": "Vocational Studies",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "c20dfde8-c792-439e-9d45-3abbed4fa5a7",
+                    "leftValue": "={{ $json.body.department }}",
+                    "rightValue": "Doctoral Studies",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -224,
+        656
+      ],
+      "id": "6e004ae6-e9fe-4378-938c-6ed6f61b7a7f",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc",
+          "mode": "list",
+          "cachedResultName": "Admissions ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 785189553,
+          "mode": "list",
+          "cachedResultName": "Nursing",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit#gid=785189553"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "program": "={{ $json.body.program }}",
+            "fullName": "={{ $json.body.fullName }}",
+            "email": "={{ $json.body.email }}",
+            "phoneNumber": "={{ $json.body.phoneNumber }}",
+            "booking slot": "={{ $json.body.preferredAdmissionDate }}",
+            "state": "={{ $json.body.state }}",
+            "city": "={{ $json.body.city }}",
+            "dateOfBirth": "={{ $json.body.dateOfBirth }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "fullName",
+              "displayName": "fullName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phoneNumber",
+              "displayName": "phoneNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "program",
+              "displayName": "program",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "booking slot",
+              "displayName": "booking slot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dateOfBirth",
+              "displayName": "dateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        768
+      ],
+      "id": "9a81e4cc-9f43-45ef-887d-505b626907bb",
+      "name": "Nursing",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc",
+          "mode": "list",
+          "cachedResultName": "Admissions ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1247615712,
+          "mode": "list",
+          "cachedResultName": "Arts & Education",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit#gid=1247615712"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "program": "={{ $json.body.program }}",
+            "fullName": "={{ $json.body.fullName }}",
+            "email": "={{ $json.body.email }}",
+            "phoneNumber": "={{ $json.body.phoneNumber }}",
+            "booking slot": "={{ $json.body.preferredAdmissionDate }}",
+            "state": "={{ $json.body.state }}",
+            "city": "={{ $json.body.city }}",
+            "dateOfBirth": "={{ $json.body.dateOfBirth }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "fullName",
+              "displayName": "fullName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phoneNumber",
+              "displayName": "phoneNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "program",
+              "displayName": "program",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "booking slot",
+              "displayName": "booking slot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dateOfBirth",
+              "displayName": "dateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        960
+      ],
+      "id": "0403f848-a4b8-443d-8222-2179b2536f9b",
+      "name": "Arts & Education",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc",
+          "mode": "list",
+          "cachedResultName": "Admissions ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1697767327,
+          "mode": "list",
+          "cachedResultName": "Library Science",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit#gid=1697767327"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "program": "={{ $json.body.program }}",
+            "fullName": "={{ $json.body.fullName }}",
+            "email": "={{ $json.body.email }}",
+            "phoneNumber": "={{ $json.body.phoneNumber }}",
+            "booking slot": "={{ $json.body.preferredAdmissionDate }}",
+            "state": "={{ $json.body.state }}",
+            "city": "={{ $json.body.city }}",
+            "dateOfBirth": "={{ $json.body.dateOfBirth }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "fullName",
+              "displayName": "fullName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phoneNumber",
+              "displayName": "phoneNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "program",
+              "displayName": "program",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "booking slot",
+              "displayName": "booking slot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dateOfBirth",
+              "displayName": "dateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        1152
+      ],
+      "id": "e360018c-d745-4cfd-9d08-86e78773ab8c",
+      "name": "Library Science",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc",
+          "mode": "list",
+          "cachedResultName": "Admissions ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 860343563,
+          "mode": "list",
+          "cachedResultName": "Vocational Studies",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit#gid=860343563"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "program": "={{ $json.body.program }}",
+            "fullName": "={{ $json.body.fullName }}",
+            "email": "={{ $json.body.email }}",
+            "phoneNumber": "={{ $json.body.phoneNumber }}",
+            "booking slot": "={{ $json.body.preferredAdmissionDate }}",
+            "state": "={{ $json.body.state }}",
+            "city": "={{ $json.body.city }}",
+            "dateOfBirth": "={{ $json.body.dateOfBirth }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "fullName",
+              "displayName": "fullName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phoneNumber",
+              "displayName": "phoneNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "program",
+              "displayName": "program",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "booking slot",
+              "displayName": "booking slot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dateOfBirth",
+              "displayName": "dateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        1344
+      ],
+      "id": "747e08c4-09b5-422a-ae8a-48cbfa7cf019",
+      "name": "Vocational Studies",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc",
+          "mode": "list",
+          "cachedResultName": "Admissions ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 197856399,
+          "mode": "list",
+          "cachedResultName": "Doctoral Studies",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit#gid=197856399"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "program": "={{ $json.body.program }}",
+            "fullName": "={{ $json.body.fullName }}",
+            "email": "={{ $json.body.email }}",
+            "phoneNumber": "={{ $json.body.phoneNumber }}",
+            "booking slot": "={{ $json.body.preferredAdmissionDate }}",
+            "state": "={{ $json.body.state }}",
+            "city": "={{ $json.body.city }}",
+            "dateOfBirth": "={{ $json.body.dateOfBirth }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "fullName",
+              "displayName": "fullName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phoneNumber",
+              "displayName": "phoneNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "program",
+              "displayName": "program",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "booking slot",
+              "displayName": "booking slot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dateOfBirth",
+              "displayName": "dateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        1536
+      ],
+      "id": "3d120420-8e3e-4d61-a5d7-41832743fa87",
+      "name": "Doctoral Studies",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc",
+          "mode": "list",
+          "cachedResultName": "Admissions ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1255612986,
+          "mode": "list",
+          "cachedResultName": "Admissions - Management",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit#gid=1255612986"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "program": "={{ $json.body.program }}",
+            "fullName": "={{ $json.body.fullName }}",
+            "email": "={{ $json.body.email }}",
+            "phoneNumber": "={{ $json.body.phoneNumber }}",
+            "booking slot": "={{ $json.body.preferredAdmissionDate }}",
+            "state": "={{ $json.body.state }}",
+            "city": "={{ $json.body.city }}",
+            "dateOfBirth": "={{ $json.body.dateOfBirth }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "fullName",
+              "displayName": "fullName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phoneNumber",
+              "displayName": "phoneNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "program",
+              "displayName": "program",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "booking slot",
+              "displayName": "booking slot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dateOfBirth",
+              "displayName": "dateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        192
+      ],
+      "id": "47c74dcf-c3ac-48d1-819b-063ec0066c3e",
+      "name": "Management & Commerce",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc",
+          "mode": "list",
+          "cachedResultName": "Admissions ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1574079482,
+          "mode": "list",
+          "cachedResultName": " Admissions - Engineering",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit#gid=1574079482"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "program": "={{ $json.body.program }}",
+            "fullName": "={{ $json.body.fullName }}",
+            "email": "={{ $json.body.email }}",
+            "phoneNumber": "={{ $json.body.phoneNumber }}",
+            "booking slot": "={{ $json.body.preferredAdmissionDate }}",
+            "state": "={{ $json.body.state }}",
+            "city": "={{ $json.body.city }}",
+            "dateOfBirth": "={{ $json.body.dateOfBirth }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "fullName",
+              "displayName": "fullName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phoneNumber",
+              "displayName": "phoneNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "program",
+              "displayName": "program",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "booking slot",
+              "displayName": "booking slot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dateOfBirth",
+              "displayName": "dateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        384
+      ],
+      "id": "1b531d00-88c2-4a4a-80fd-aae6331b4937",
+      "name": "Engineering & Technology",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc",
+          "mode": "list",
+          "cachedResultName": "Admissions ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1157242910,
+          "mode": "list",
+          "cachedResultName": "Admissions - Pharmacy ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit#gid=1157242910"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "program": "={{ $json.body.program }}",
+            "fullName": "={{ $json.body.fullName }}",
+            "email": "={{ $json.body.email }}",
+            "phoneNumber": "={{ $json.body.phoneNumber }}",
+            "booking slot": "={{ $json.body.preferredAdmissionDate }}",
+            "state": "={{ $json.body.state }}",
+            "city": "={{ $json.body.city }}",
+            "dateOfBirth": "={{ $json.body.dateOfBirth }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "fullName",
+              "displayName": "fullName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phoneNumber",
+              "displayName": "phoneNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "program",
+              "displayName": "program",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "booking slot",
+              "displayName": "booking slot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dateOfBirth",
+              "displayName": "dateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        576
+      ],
+      "id": "28d99503-7636-4734-9a1a-af3ba3cde4ef",
+      "name": "Pharmacy",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc",
+          "mode": "list",
+          "cachedResultName": "Admissions ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Admissions - Computer Science",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X3jN2P9zkfr9O_2u-e_wDz8tKARLc0njEJFHwUHdcnc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "program": "={{ $json.body.program }}",
+            "fullName": "={{ $json.body.fullName }}",
+            "email": "={{ $json.body.email }}",
+            "phoneNumber": "={{ $json.body.phoneNumber }}",
+            "booking slot": "={{ $json.body.preferredAdmissionDate }}",
+            "state": "={{ $json.body.state }}",
+            "city": "={{ $json.body.city }}",
+            "dateOfBirth": "={{ $json.body.dateOfBirth }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "fullName",
+              "displayName": "fullName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phoneNumber",
+              "displayName": "phoneNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "program",
+              "displayName": "program",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "booking slot",
+              "displayName": "booking slot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dateOfBirth",
+              "displayName": "dateOfBirth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1c19b30b-c25d-4141-b26e-89242337e9be",
+      "name": "Science & Comp. Apps.",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dwbDdcICSDCjrlNs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "numberInputs": 9
+      },
+      "id": "36d6a569-bbec-4a93-aef3-4df22b1e2941",
+      "name": "Merge All Departments1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        528,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Generate VIP ticket and communications for:\n\nStudent Name: {{ $json.fullName }}\nEmail: {{ $json.email }}\nPhone: {{ $json.phoneNumber }}\nProgram: {{ $json.program }}\n\nVisit Date: {{ $json['booking slot'] }}\nCity: {{ $json.city }}\nState: {{ $json.state }}\n\nReturn ONLY the JSON output.",
+        "options": {
+          "systemMessage": "You are a VIP Ticket Generation Assistant for Noble University admissions.\n\nTASK: Generate VIP campus visit ticket, welcome email, and WhatsApp message with PROPER HTML and CSS.\n\nGUIDE ASSIGNMENTS:\n- Engineering & Technology → Prof. Sharma (98765-43210)\n- Science & Comp. Apps. → Prof. Mehta (98765-43211)\n- Pharmacy & Allied Health → Dr. Patel (98765-43212)\n- Management & Commerce → Prof. Trivedi (98765-43213)\n- Nursing → Sister Roy (98765-43214)\n- Arts & Education → Prof. Desai (98765-43215)\n- Library Science → Dr. Shah (98765-43216)\n- Vocational Studies → Prof. Modi (98765-43217)\n- Doctoral Studies → Dr. Principal Office (98765-43218)\n- Other → Main Admission Desk (0285-262-6666)\n\nCRITICAL HTML RULES:\n1. Use INLINE CSS only (style=\"...\" in every tag)\n2. Keep all HTML on ONE LINE (no line breaks)\n3. Use single quotes inside style attributes\n4. Properly escape double quotes with backslash \\\"\n\nOUTPUT FORMAT - Return ONLY valid JSON:\n{\n  \"assignedGuider\": \"Prof. Name (Phone)\",\n  \"formattedDate\": \"Friday, 12 December 2025\",\n  \"ticketHTML\": \"Full HTML with inline CSS\",\n  \"emailSubject\": \"Email subject\",\n  \"emailBody\": \"Full HTML email with inline CSS\",\n  \"whatsappMessage\": \"Text message\"\n}\n\nVIP TICKET HTML (Copy this structure exactly):\n\n<div style=\\\"max-width:600px;margin:0 auto;font-family:Arial,sans-serif;border:3px dashed #1a237e;background:#f5f5f5;padding:0;\\\"><div style=\\\"background:#1a237e;color:#fff;padding:20px;text-align:center;margin:0;\\\"><h2 style=\\\"margin:0;font-size:28px;font-weight:bold;\\\">🎓 NOBLE UNIVERSITY</h2><p style=\\\"margin:8px 0 0 0;letter-spacing:3px;font-size:12px;\\\">OFFICIAL CAMPUS VISIT PASS</p></div><div style=\\\"background:#fff;padding:25px;margin:15px;\\\"><p style=\\\"margin:8px 0;font-size:16px;color:#333;\\\"><strong style=\\\"color:#1a237e;\\\">Visitor Name:</strong> [STUDENT_NAME]</p><p style=\\\"margin:8px 0;font-size:16px;color:#333;\\\"><strong style=\\\"color:#1a237e;\\\">Program Interest:</strong> [PROGRAM]</p><p style=\\\"margin:8px 0;font-size:16px;color:#333;\\\"><strong style=\\\"color:#1a237e;\\\">Scheduled Date:</strong> <span style=\\\"color:#d32f2f;font-size:18px;font-weight:bold;\\\">[FORMATTED_DATE]</span></p><hr style=\\\"border:0;border-top:2px solid #eee;margin:15px 0;\\\"/><p style=\\\"margin:8px 0;font-size:16px;color:#333;\\\"><strong style=\\\"color:#1a237e;\\\">Your Assigned Guider:</strong> [GUIDE_NAME_PHONE]</p><p style=\\\"margin:12px 0 0 0;font-size:14px;color:#666;font-style:italic;\\\">Please show this digital ticket at the main gate for direct entry.</p></div><div style=\\\"text-align:center;padding:15px;background:#f0f0f0;\\\"><img src=\\\"https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=[EMAIL]\\\" alt=\\\"Entry QR Code\\\" style=\\\"border:2px solid #1a237e;padding:5px;background:#fff;\\\"/><p style=\\\"margin:10px 0 0 0;font-size:12px;color:#666;\\\">Scan for verification</p></div></div>\n\nReplace placeholders:\n- [STUDENT_NAME] → Student full name\n- [PROGRAM] → Program name\n- [FORMATTED_DATE] → Formatted date\n- [GUIDE_NAME_PHONE] → Guide with phone\n- [EMAIL] → Student email (URL encoded)\n\nEMAIL BODY STRUCTURE (with inline CSS):\n\n<div style=\\\"max-width:650px;margin:0 auto;font-family:Arial,sans-serif;color:#333;line-height:1.6;\\\"><div style=\\\"background:#1a237e;color:#fff;padding:20px;text-align:center;\\\"><h1 style=\\\"margin:0;font-size:24px;\\\">Noble University</h1></div><div style=\\\"padding:25px;background:#fff;\\\"><p style=\\\"font-size:16px;margin:0 0 15px 0;\\\">Dear [FIRST_NAME],</p><p style=\\\"font-size:15px;margin:0 0 15px 0;\\\">We are delighted to confirm your VIP campus visit to Noble University! We look forward to welcoming you and discussing your interest in our <strong>[PROGRAM]</strong> program.</p><p style=\\\"font-size:15px;margin:0 0 20px 0;\\\">Here is your official campus visit pass:</p>[INSERT_TICKET_HTML_HERE]<p style=\\\"font-size:15px;margin:25px 0 15px 0;\\\">During your visit, you will be guided by <strong>[GUIDE_NAME]</strong>, who will provide insights into the [DEPARTMENT] department and answer all your queries.</p><div style=\\\"background:#f0f4ff;border-left:4px solid #1a237e;padding:15px;margin:20px 0;\\\"><h3 style=\\\"color:#1a237e;margin:0 0 10px 0;font-size:18px;\\\">📂 Resources for You:</h3><ul style=\\\"margin:0;padding-left:20px;\\\"><li style=\\\"margin:8px 0;\\\"><a href=\\\"https://nobleuniversity.ac.in/brochure.pdf\\\" style=\\\"color:#1a237e;text-decoration:none;font-weight:bold;\\\">📥 Download Program Brochure</a></li><li style=\\\"margin:8px 0;\\\"><a href=\\\"https://nobleuniversity.ac.in/placements.pdf\\\" style=\\\"color:#1a237e;text-decoration:none;font-weight:bold;\\\">📊 View Placement Reports</a></li><li style=\\\"margin:8px 0;\\\"><a href=\\\"https://nobleuniversity.ac.in/campus-tour\\\" style=\\\"color:#1a237e;text-decoration:none;font-weight:bold;\\\">🎥 Watch Campus Tour</a></li></ul></div><p style=\\\"font-size:15px;margin:20px 0 5px 0;\\\">We look forward to meeting you!</p><p style=\\\"font-size:15px;margin:5px 0;\\\">Warm regards,<br/><strong>Admissions Team</strong><br/>Noble University</p></div><div style=\\\"background:#f5f5f5;padding:15px;text-align:center;font-size:12px;color:#666;\\\"><p style=\\\"margin:0;\\\">Noble University, Junagadh, Gujarat</p><p style=\\\"margin:5px 0 0 0;\\\">📞 0285-262-6666 | 📧 admissions@nobleuniversity.ac.in</p></div></div>\n\nWHATSAPP MESSAGE (Plain text, max 400 chars):\n\n🎉 *Visit Confirmed!*\n\nHi [FIRST_NAME], your campus visit for *[PROGRAM]* is booked for *[FORMATTED_DATE]*.\n\n👮 *Your Guide:* [GUIDE_NAME]\n📍 *Location:* Noble University, Junagadh\n\nSee you soon! 🎓\n\nFORMATTING RULES:\n1. Date format: \"DayName, DD Month YYYY\" (e.g., \"Friday, 12 December 2025\")\n2. All HTML must be one continuous line (no newlines in JSON)\n3. Use \\\" for quotes inside JSON strings\n4. Extract first name from full name for greetings\n5. Match guide to department exactly (case-insensitive)\n\nCRITICAL: Response must be ONLY valid JSON. Start with { and end with }. No explanations, no markdown, no code blocks."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        816,
+        352
+      ],
+      "id": "9fa09d78-d8f5-4014-87c1-3481ead497ef",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        704,
+        608
+      ],
+      "id": "bc20ab1d-d50d-4c45-8749-dd2895410b33",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "4wRKMEjIJerzsBtR",
+          "name": "Google Gemini(PaLM) Api account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the output from AI Agent\nconst aiOutput = items[0].json.output;\n\ntry {\n  // Parse the JSON string\n  const parsed = JSON.parse(aiOutput);\n  \n  // Merge with existing data\n  items[0].json = {\n    ...items[0].json,\n    ...parsed,\n    body: items[0].json.body\n  };\n  \n  console.log('✅ Parsed successfully');\n  \n} catch (error) {\n  items[0].json.error = 'Parse failed: ' + error.message;\n  console.error('❌ Error:', error);\n}\n\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1264,
+        336
+      ],
+      "id": "3bbbfe68-69ca-406e-873b-7194e84bec84",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Merge All Departments1').item.json.email }}",
+        "subject": "={{ $json.emailSubject }}",
+        "message": "={{ $json.emailBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1680,
+        320
+      ],
+      "id": "135b8c14-8fc7-4178-8af8-0cad174eb171",
+      "name": "Send a message",
+      "webhookId": "a76e0b20-e991-4ea5-9023-e9c629950b2b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "QW6ENw4otOnfyw0t",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1840,
+        1216
+      ],
+      "id": "7e59a5fc-ef91-4ba6-ab74-3707ef50a0d5",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "4wRKMEjIJerzsBtR",
+          "name": "Google Gemini(PaLM) Api account 5"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "scholarships": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "departmental": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "campus_facilities": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "required_documents": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "financial_information": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "program_details": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "admission_timeline": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Science & Comp. Apps.",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Management & Commerce",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Engineering & Technology",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pharmacy",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Nursing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Arts & Education",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Library Science",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Vocational Studies",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Doctoral Studies",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Engineering & Technology": {
+      "main": [
+        [
+          {
+            "node": "Merge All Departments1",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Science & Comp. Apps.": {
+      "main": [
+        [
+          {
+            "node": "Merge All Departments1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Management & Commerce": {
+      "main": [
+        [
+          {
+            "node": "Merge All Departments1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Pharmacy": {
+      "main": [
+        [
+          {
+            "node": "Merge All Departments1",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Nursing": {
+      "main": [
+        [
+          {
+            "node": "Merge All Departments1",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Arts & Education": {
+      "main": [
+        [
+          {
+            "node": "Merge All Departments1",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "Library Science": {
+      "main": [
+        [
+          {
+            "node": "Merge All Departments1",
+            "type": "main",
+            "index": 6
+          }
+        ]
+      ]
+    },
+    "Vocational Studies": {
+      "main": [
+        [
+          {
+            "node": "Merge All Departments1",
+            "type": "main",
+            "index": 7
+          }
+        ]
+      ]
+    },
+    "Doctoral Studies": {
+      "main": [
+        [
+          {
+            "node": "Merge All Departments1",
+            "type": "main",
+            "index": 8
+          }
+        ]
+      ]
+    },
+    "Merge All Departments1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        []
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "6545a926-2c8b-4bf1-8060-6f7e81aeafc3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "68b3f0f6e7cfbfd0688ed65eb600db8acb1fb50140fe3266d7a7378f703c940f"
+  },
+  "id": "bkjDn9FVtSBSIlL8",
+  "tags": []
+}
