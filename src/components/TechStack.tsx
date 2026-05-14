@@ -1,3 +1,5 @@
+import ragIcon from "@/assets/nodes/rag.svg";
+
 const TechStack = () => {
   const techCategories = [
     {
@@ -15,7 +17,7 @@ const TechStack = () => {
       logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg",
       techs: [
         { name: "React", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" },
-        { name: "Tailwind CSS", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-original.svg" },
+        { name: "Tailwind CSS", logo: "https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" },
         { name: "Bootstrap", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-original.svg" }
       ]
     },
@@ -75,9 +77,22 @@ const TechStack = () => {
     }
   ];
 
+  const coreSkills = [
+    { name: "Python (Data Science)", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" },
+    { name: "AI Agents", logo: "https://www.vectorlogo.zone/logos/openai/openai-icon.svg" },
+    { name: "React", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" },
+    { name: "n8n", logo: "https://n8n.io/favicon.ico" },
+    { name: "RAG Systems", logo: ragIcon },
+    { name: "Firebase", logo: "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" },
+    { name: "Supabase", logo: "https://www.vectorlogo.zone/logos/supabase/supabase-icon.svg" },
+    { name: "Automation", logo: "https://www.vectorlogo.zone/logos/zapier/zapier-icon.svg" },
+    { name: "Figma", logo: "https://www.vectorlogo.zone/logos/figma/figma-icon.svg" },
+    { name: "Canva", logo: "https://www.vectorlogo.zone/logos/canva/canva-icon.svg" }
+  ];
+
   return (
-    <section id="tech-stack" className="py-20 relative">
-      <div className="container mx-auto px-4">
+    <section id="tech-stack" className="py-20 relative scroll-mt-28">
+      <div className="tech-stack-container n8n-node-card px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -92,7 +107,7 @@ const TechStack = () => {
             {techCategories.map((category, index) => (
               <div
                 key={index}
-                className="p-6 rounded-lg bg-card border border-border hover:border-primary/50 transition-all card-glow group"
+                className="p-6 rounded-xl border border-slate-200 bg-white text-slate-900 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg group n8n-node-card dark:bg-card dark:text-foreground dark:border-border"
               >
                 <div className="mb-4 group-hover:scale-110 transition-transform">
                   <img src={category.logo} alt={category.title} className="w-12 h-12" />
@@ -104,7 +119,7 @@ const TechStack = () => {
                   {category.techs.map((tech, techIndex) => (
                     <div
                       key={techIndex}
-                      className="flex items-center gap-2 px-3 py-1 text-sm rounded-full bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors group/tech"
+                      className="flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-sm text-slate-700 transition-colors group/tech hover:border-primary/40 hover:bg-primary/10 hover:text-primary dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-primary dark:hover:text-primary-foreground"
                     >
                       <img src={tech.logo} alt={tech.name} className="w-4 h-4 group-hover/tech:scale-110 transition-transform" />
                       <span>{tech.name}</span>
@@ -115,48 +130,30 @@ const TechStack = () => {
             ))}
           </div>
 
-          {/* Featured Skills - 3D */}
-          <div className="mt-16 p-8 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 relative overflow-hidden">
+          {/* Core Expertise - n8n style marquee */}
+          <div className="mt-16 p-8 rounded-lg bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 border border-primary/20 relative overflow-hidden n8n-node-card">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5 animate-pulse"></div>
-            <h3 className="text-2xl font-bold mb-6 text-center relative z-10">
+            <h3 className="text-2xl font-bold text-center relative z-10">
               💪 Core <span className="gradient-text">Expertise</span>
             </h3>
-            <div className="flex flex-wrap justify-center gap-4 relative z-10">
-              {[
-                { name: "Python (Data Science)", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" },
-                { name: "AI Agents", logo: "https://www.vectorlogo.zone/logos/openai/openai-icon.svg" },
-                { name: "React", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" },
-                { name: "n8n", logo: "https://n8n.io/favicon.ico" },
-                { name: "RAG Systems", logo: "https://cdn.worldvectorlogo.com/logos/langchain.svg" },
-                { name: "Firebase", logo: "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" },
-                { name: "Supabase", logo: "https://www.vectorlogo.zone/logos/supabase/supabase-icon.svg" },
-                { name: "Automation", logo: "https://www.vectorlogo.zone/logos/zapier/zapier-icon.svg" },
-                { name: "Figma", logo: "https://www.vectorlogo.zone/logos/figma/figma-icon.svg" },
-                { name: "Canva", logo: "https://www.vectorlogo.zone/logos/canva/canva-icon.svg" }
-              ].map((skill, index) => (
-                <div
-                  key={index}
-                  className="group px-6 py-3 rounded-lg bg-card border border-primary/50 font-semibold hover:scale-110 transition-all cursor-default relative"
-                  style={{
-                    transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg)',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    const card = e.currentTarget;
-                    card.style.transform = 'perspective(1000px) rotateX(-5deg) rotateY(5deg) translateZ(20px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    const card = e.currentTarget;
-                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
-                  }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg"></div>
-                  <div className="flex items-center gap-3 relative z-10">
-                    <img src={skill.logo} alt={skill.name} className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+            <p className="text-center text-sm md:text-base text-muted-foreground mt-2 relative z-10">
+              Inspired by the n8n workflow canvas — hover to pause and explore each capability.
+            </p>
+            <div className="core-expertise-marquee relative z-10 mt-8">
+              <div className="core-expertise-track">
+                {[...coreSkills, ...coreSkills].map((skill, index) => (
+                  <div
+                    key={`core-skill-${index}`}
+                    className="core-expertise-item n8n-node-card"
+                    aria-hidden={index >= coreSkills.length}
+                  >
+                    <div className="core-expertise-icon">
+                      <img src={skill.logo} alt={skill.name} />
+                    </div>
                     <span>{skill.name}</span>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>

@@ -42,7 +42,7 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-20 relative">
+    <section id="services" className="py-20 relative scroll-mt-28">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -94,18 +94,18 @@ const Services = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="text-3xl mb-2">🎯</div>
-                <h4 className="font-semibold mb-2">Result-Oriented</h4>
-                <p className="text-sm text-muted-foreground">Focused on delivering measurable outcomes</p>
+                <h4 className="font-semibold mb-2">High-ROI Automation</h4>
+                <p className="text-sm text-muted-foreground">Focusing on workflows that measurably reduce manual labor and increase operational efficiency.</p>
               </div>
               <div className="text-center">
                 <div className="text-3xl mb-2">⚡</div>
-                <h4 className="font-semibold mb-2">Fast Delivery</h4>
-                <p className="text-sm text-muted-foreground">Quick turnaround without compromising quality</p>
+                <h4 className="font-semibold mb-2">Rapid Prototyping</h4>
+                <p className="text-sm text-muted-foreground">Quick turnaround on MVPs using low-code tools like n8n paired with custom Python scripts.</p>
               </div>
               <div className="text-center">
                 <div className="text-3xl mb-2">🔧</div>
-                <h4 className="font-semibold mb-2">Scalable Solutions</h4>
-                <p className="text-sm text-muted-foreground">Built to grow with your needs</p>
+                <h4 className="font-semibold mb-2">Enterprise-Ready Architecture</h4>
+                <p className="text-sm text-muted-foreground">Built on robust backends like Supabase and Firebase to handle growth without breaking.</p>
               </div>
               <div className="text-center">
                 <div className="text-3xl mb-2">🤝</div>

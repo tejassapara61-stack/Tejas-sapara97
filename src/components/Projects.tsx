@@ -7,16 +7,15 @@ const Projects = () => {
   const projects = [
     {
       title: "Mahi 1.0",
-      description: "Advanced AI-powered automation system featuring intelligent workflows and multi-agent orchestration",
-      longDescription: "A comprehensive automation platform that leverages AI agents for intelligent decision-making and workflow optimization.",
-      tags: ["Python", "AI Agents", "n8n", "RAG", "OpenAI", "Firebase"],
-      features: [
-        "🤖 Multi-agent AI orchestration",
-        "🔄 Automated workflow optimization",
-        "📊 Real-time analytics dashboard",
-        "🔌 Seamless API integrations",
-        "🧠 Context-aware decision making"
+      description: "Desktop AI Orchestrator",
+      challenge: "Manual desktop task management drains operator time and introduces human error across workflows.",
+      solution: "A desktop assistant that uses multi-agent orchestration to automate file handling, data retrieval, and system operations autonomously.",
+      outcomes: [
+        "Coordinates multiple AI agents to execute and monitor desktop workflows without manual intervention.",
+        "Employs RAG pipelines to retrieve project-specific knowledge before every decision point.",
+        "Maintains audit-ready activity logs for governance, compliance, and troubleshooting."
       ],
+      tags: ["Python", "RAG", "OpenAI API", "Multi-Agent Systems", "n8n"],
       github: "https://github.com/tejassapara61-stack/mahi-1.0",
       status: "Active",
       stars: "12",
@@ -24,16 +23,15 @@ const Projects = () => {
     },
     {
       title: "Green-GO",
-      description: "Sustainable tech solution combining modern web technologies with eco-friendly practices",
-      longDescription: "An innovative platform focused on environmental impact tracking and sustainable technology practices.",
-      tags: ["React", "Node.js", "Firebase", "Python", "REST API"],
-      features: [
-        "🌿 Environmental impact tracking",
-        "📱 Responsive web application",
-        "🔐 Secure authentication system",
-        "📈 Data visualization",
-        "⚡ Real-time updates"
+      description: "Sustainable Tech Tracker",
+      challenge: "Sustainability teams lacked a live view of environmental metrics across initiatives.",
+      solution: "A responsive web app that visualizes ecological data, pairing secure authentication with real-time updates for eco-friendly practices.",
+      outcomes: [
+        "Streams impact metrics into dashboards that highlight trends and anomalies instantly.",
+        "Implements role-based access controls so distributed teams collaborate safely.",
+        "Integrates REST APIs to synchronize sustainability data across internal systems."
       ],
+      tags: ["React", "Node.js", "Firebase", "REST APIs"],
       github: "https://github.com/tejassapara61-stack/green-GO",
       status: "Active",
       stars: "8",
@@ -42,7 +40,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-20 relative">
+    <section id="projects" className="py-20 relative scroll-mt-28">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -97,25 +95,42 @@ const Projects = () => {
                 </CardHeader>
 
                 <CardContent className="space-y-6">
-                  <p className="text-muted-foreground">
-                    {project.longDescription}
-                  </p>
-
-                  <div>
-                    <h4 className="font-semibold mb-3 text-sm uppercase tracking-wide text-primary">
-                      Key Features
-                    </h4>
-                    <div className="grid md:grid-cols-2 gap-2">
-                      {project.features.map((feature, featureIndex) => (
-                        <div
-                          key={featureIndex}
-                          className="flex items-center gap-2 text-sm"
-                        >
-                          <span>{feature}</span>
-                        </div>
-                      ))}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold mb-3 text-sm uppercase tracking-wide text-primary">
+                        The Challenge
+                      </h4>
+                      <p className="text-muted-foreground text-sm md:text-base">
+                        {project.challenge}
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-3 text-sm uppercase tracking-wide text-primary">
+                        The Solution
+                      </h4>
+                      <p className="text-muted-foreground text-sm md:text-base">
+                        {project.solution}
+                      </p>
                     </div>
                   </div>
+
+                  {project.outcomes && project.outcomes.length > 0 && (
+                    <div>
+                      <h4 className="font-semibold mb-3 text-sm uppercase tracking-wide text-primary">
+                        Key Outcomes
+                      </h4>
+                      <div className="grid md:grid-cols-2 gap-3">
+                        {project.outcomes.map((outcome, outcomeIndex) => (
+                          <div
+                            key={outcomeIndex}
+                            className="rounded-lg bg-card border border-border px-4 py-3 text-sm text-muted-foreground"
+                          >
+                            {outcome}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   <div>
                     <h4 className="font-semibold mb-3 text-sm uppercase tracking-wide text-primary">

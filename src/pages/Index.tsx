@@ -5,19 +5,29 @@ import WorkflowDemo from "@/components/WorkflowDemo";
 import Projects from "@/components/Projects";
 import Services from "@/components/Services";
 import Contact from "@/components/Contact";
-import ThemeToggle from "@/components/ThemeToggle";
+import Header from "@/components/Header";
+import Testimonials from "@/components/Testimonials";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <ThemeToggle />
-      <Hero />
-      <About />
-      <TechStack />
-      <WorkflowDemo />
-      <Projects />
-      <Services />
-      <Contact />
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:shadow-lg"
+      >
+        Skip to content
+      </a>
+      <Header />
+      <main id="main-content" tabIndex={-1}>
+        <Hero />
+        <About />
+        <TechStack />
+        <WorkflowDemo />
+        <Projects />
+        <Services />
+        <Testimonials />
+        <Contact />
+      </main>
       
       {/* Footer */}
       <footer className="py-8 border-t border-border">

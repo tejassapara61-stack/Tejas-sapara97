@@ -25,7 +25,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 relative">
+    <section id="about" className="py-20 relative scroll-mt-28">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -40,7 +40,10 @@ const About = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div className="space-y-6">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                I'm a passionate developer specializing in <span className="text-primary font-semibold">AI-powered automation</span> and <span className="text-secondary font-semibold">intelligent systems</span>. I transform complex workflows into seamless automated solutions using cutting-edge technologies.
+                I am an AI Automation Developer and BCA student based in Gujarat, India. Unlike traditional developers who just write code, I focus on building <span className="text-foreground font-semibold">systems</span>.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                My expertise lies in bridging the gap between raw data and actionable intelligence. Whether it's orchestrating multi-agent workflows in n8n, building RAG pipelines for smarter answers, or developing full-stack SaaS applications, I engineer solutions that work autonomously.
               </p>
               
               <div className="space-y-4">
@@ -80,9 +83,9 @@ const About = () => {
 
             <div className="grid grid-cols-2 gap-4">
               {highlights.map((item, index) => (
-                <div 
+                <div
                   key={index}
-                  className="p-6 rounded-lg bg-card border border-border hover:border-primary/50 transition-all card-glow"
+                  className="p-6 rounded-xl border border-slate-200 bg-white text-slate-900 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg dark:bg-card dark:text-foreground dark:border-border"
                 >
                   <item.icon className="h-8 w-8 text-primary mb-4" />
                   <h3 className="font-semibold mb-2">{item.title}</h3>

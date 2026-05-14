@@ -4,23 +4,27 @@ import heroBg from "@/assets/hero-bg.jpg";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div 
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden scroll-mt-28">
+      <div
         className="absolute inset-0 z-0"
         style={{
           backgroundImage: `url(${heroBg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundSize: "cover",
+          backgroundPosition: "center"
         }}
       >
         <div className="absolute inset-0 bg-background/90 backdrop-blur-sm"></div>
       </div>
 
-      {/* Animated gradient orbs */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-primary/30 rounded-full blur-3xl animate-float"></div>
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
-      <div className="absolute top-40 right-20 w-64 h-64 bg-accent/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }}></div>
+      <div
+        className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-float"
+        style={{ animationDelay: "2s" }}
+      ></div>
+      <div
+        className="absolute top-40 right-20 w-64 h-64 bg-accent/20 rounded-full blur-3xl animate-float"
+        style={{ animationDelay: "4s" }}
+      ></div>
 
       {/* Content */}
       <div className="container relative z-10 mx-auto px-4 py-20">
@@ -32,25 +36,19 @@ const Hero = () => {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-            Hi, I'm{" "}
-            <span className="gradient-text">Tejas Sapara</span>
+            Building <span className="gradient-text">Intelligent AI Agents</span> &amp; Scalable SaaS Solutions
           </h1>
 
-          <div className="text-xl md:text-2xl text-muted-foreground space-y-2">
-            <p className="font-semibold text-foreground">
-              Automation Enthusiast | AI Agent Developer | SaaS Builder
-            </p>
-            <p className="flex items-center justify-center gap-2 text-lg">
-              📍 Keshod, Gujarat, India
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
+            I help businesses automate complex workflows using n8n, RAG systems, and custom AI agents. From concept to deployment, I build systems that save time and cut costs.
+          </p>
+
+          <div className="text-lg md:text-xl text-muted-foreground space-y-1">
+            <p className="font-semibold text-foreground">Tejas Sapara • AI Automation Developer</p>
+            <p className="flex items-center justify-center gap-2 text-base md:text-lg">
+              📍 Gujarat, India
             </p>
           </div>
-
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            I'm a passionate developer specializing in{" "}
-            <span className="text-primary font-semibold">AI-powered automation</span> and{" "}
-            <span className="text-secondary font-semibold">intelligent systems</span>.
-            I transform complex workflows into seamless automated solutions.
-          </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-4 justify-center pt-4">
