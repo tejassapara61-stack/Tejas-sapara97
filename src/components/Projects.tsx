@@ -33,7 +33,7 @@ const projects: Project[] = [
       { icon: Database, label: "Data Layer", desc: "Supabase + RAG", color: "cyan" },
       { icon: Bot, label: "Auto Execute", desc: "Workflow Actions", color: "emerald" },
     ],
-    links: { demo: "https://youtu.be/9a-DgRYTRyk" },
+    links: { demo: "https://www.youtube.com/embed/9a-DgRYTRyk" },
     githubUrl: "https://github.com/tejassapara61-stack/corenexta",
   },
   {
