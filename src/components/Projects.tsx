@@ -248,7 +248,7 @@ const Projects = () => {
                   {demoProject.links?.demo?.includes("youtube.com") || demoProject.links?.demo?.includes("youtu.be") ? (
                     <iframe
                       className="w-full h-full"
-                      src={demoProject.links.demo.replace("watch?v=", "embed/").replace("youtu.be/", "youtube.com/embed/")}
+                      src={demoProject.links.demo.replace("watch?v=", "embed/").replace("youtu.be/", "www.youtube.com/embed/")}
                       title="YouTube video player"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
