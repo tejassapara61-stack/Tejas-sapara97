@@ -8,6 +8,7 @@ import Services from "@/components/Services";
 import ClaudeSkills from "@/components/ClaudeSkills";
 import Contact from "@/components/Contact";
 import Header from "@/components/Header";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const Index = () => {
   return (
@@ -44,6 +45,8 @@ const Index = () => {
           </div>
         </div>
       </footer>
+      
+      <ScrollToTop />
     </div>
   );
 };

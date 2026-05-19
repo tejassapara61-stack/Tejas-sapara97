@@ -29,26 +29,26 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    const sections = NAV_LINKS.map((link) => document.querySelector<HTMLElement>(link.href)).filter(
-      (section): section is HTMLElement => Boolean(section)
-    );
-    if (sections.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntries = entries.filter((entry) => entry.isIntersecting);
-        if (visibleEntries.length > 0) {
-          const topMost = visibleEntries.reduce((prev, current) =>
-            prev.boundingClientRect.top < current.boundingClientRect.top ? prev : current
-          );
-          setActiveHash(`#${topMost.target.id}`);
+    const handleScrollSpy = () => {
+      const sections = NAV_LINKS.map(link => document.querySelector<HTMLElement>(link.href)).filter(Boolean) as HTMLElement[];
+      let currentSection = "";
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (window.scrollY >= sectionTop - 150) {
+          currentSection = `#${section.id}`;
         }
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: [0.1, 0.25, 0.5] }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+      });
+      
+      if (currentSection) {
+        setActiveHash(currentSection);
+      }
+    };
+    
+    window.addEventListener("scroll", handleScrollSpy);
+    // Trigger once on mount
+    handleScrollSpy();
+    return () => window.removeEventListener("scroll", handleScrollSpy);
   }, []);
 
   const handleLinkClick = useCallback((event: MouseEvent<HTMLAnchorElement>, hash: string) => {
@@ -62,7 +62,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={cn("sticky top-0 z-40 transition-all duration-500", scrolled ? "py-2" : "py-3")}>
+    <header className={cn("sticky top-0 z-40 transition-all duration-500 border-b-[1px] border-[var(--color-accent)]/20", scrolled ? "py-2" : "py-3")}>
       <div className={cn(
         "max-w-6xl mx-4 md:mx-auto rounded-2xl transition-all duration-500",
         scrolled
@@ -71,7 +71,7 @@ const Header = () => {
       )}>
         <div className="flex items-center justify-between gap-4">
           {/* Branding */}
-          <a href="#hero" className="font-bold text-sm md:text-base tracking-tight text-gray-900 dark:text-white hover:text-accent transition-colors">
+          <a href="#hero" className="font-bold text-sm md:text-base tracking-tight text-gray-900 dark:text-white hover:text-[var(--color-accent)] transition-colors">
             Tejass Sapara<span className="text-gray-500 dark:text-gray-400 font-normal"> • AI Architect</span>
           </a>
 
@@ -88,8 +88,8 @@ const Header = () => {
                       className={cn(
                         "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300 border",
                         activeHash === item.href
-                          ? "text-gray-900 dark:text-white bg-gray-100 dark:bg-white/[0.10] border-gray-200 dark:border-white/[0.15]"
-                          : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white border-transparent"
+                          ? "text-[var(--color-accent)] bg-[var(--color-accent)]/10 border-[var(--color-accent)]/20 shadow-sm"
+                          : "text-gray-600 dark:text-gray-400 hover:text-[var(--color-accent)] hover:bg-[var(--color-accent)]/5 border-transparent"
                       )}
                       aria-current={activeHash === item.href ? "page" : undefined}
                     >

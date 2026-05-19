@@ -207,53 +207,7 @@ const Projects = () => {
             </motion.div>
           ))}
 
-          <motion.div
-            whileHover={{ scale: 1.01 }}
-            transition={{ type: "spring", stiffness: 260, damping: 24 }}
-            className="bento-card group md:col-span-2"
-          >
-            <div className="flex flex-col items-start gap-6 md:flex-row md:items-center">
-              <div className="shrink-0">
-                <div className="rounded-2xl border-2 border-accent/50 p-1">
-                  <img
-                    src="/images/tejass-profile.jpeg"
-                    alt="Tejass Sapara"
-                    className="h-28 w-28 rounded-2xl object-cover"
-                  />
-                </div>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">Hi, I'm <span className="text-gray-900 dark:text-white">Tejass Sapara</span>. 👋</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base leading-relaxed">
-                  My journey into AI didn't start with theory—it started with a need to automate my own tedious tasks. That curiosity quickly turned into a full-blown obsession with multi-agent systems and n8n workflows. Based in Gujarat, I build AI architectures because I believe humans should do creative work, not robotic tasks. When I'm not vibe-coding or orchestrating LLMs, I'm usually pushing the limits of what autonomous agents can achieve.
-                </p>
-                <div className="mt-4 flex items-center gap-4">
-                  <a
-                    href="https://www.linkedin.com/in/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="LinkedIn"
-                    className="text-gray-500 dark:text-gray-400 hover:text-accent dark:hover:text-accent transition-colors"
-                  >
-                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
-                      <path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19ZM8.75 9.5H6.5V17H8.75V9.5ZM7.62 6.5A1.13 1.13 0 0 0 6.5 7.62C6.5 8.24 7 8.75 7.62 8.75C8.25 8.75 8.75 8.24 8.75 7.62C8.75 7 8.25 6.5 7.62 6.5ZM17.5 12.5C17.5 10.57 16.46 9.25 14.63 9.25C13.65 9.25 12.98 9.78 12.64 10.32H12.61V9.5H10.5C10.53 10.05 10.5 17 10.5 17H12.75V13.5C12.75 12.56 12.93 11.64 14.11 11.64C15.27 11.64 15.29 12.7 15.29 13.56V17H17.5V12.5Z" />
-                    </svg>
-                  </a>
-                  <a
-                    href="https://github.com/tejassapara61-stack"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="GitHub"
-                    className="text-text-muted hover:text-accent transition-colors"
-                  >
-                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
-                      <path d="M12 .5C5.73.5.5 5.74.5 12.02C.5 17.1 3.78 21.5 8.36 23.02C8.96 23.13 9.18 22.78 9.18 22.48C9.18 22.22 9.17 21.56 9.17 20.74C5.84 21.47 5.14 19.25 5.14 19.25C4.59 17.86 3.79 17.5 3.79 17.5C2.68 16.74 3.87 16.76 3.87 16.76C5.1 16.85 5.75 18.03 5.75 18.03C6.84 19.91 8.63 19.37 9.32 19.06C9.43 18.26 9.74 17.72 10.08 17.41C7.42 17.11 4.62 16.06 4.62 11.39C4.62 10.06 5.09 8.96 5.86 8.1C5.74 7.79 5.33 6.54 5.97 4.84C5.97 4.84 6.97 4.52 9.17 6.04C10.12 5.78 11.14 5.65 12.17 5.65C13.2 5.65 14.22 5.78 15.17 6.04C17.37 4.52 18.37 4.84 18.37 4.84C19.01 6.54 18.6 7.79 18.48 8.1C19.25 8.96 19.72 10.06 19.72 11.39C19.72 16.07 16.91 17.1 14.24 17.4C14.66 17.76 15.03 18.48 15.03 19.59C15.03 21.18 15.02 22.18 15.02 22.48C15.02 22.78 15.24 23.14 15.85 23.02C20.43 21.5 23.5 17.1 23.5 12.02C23.5 5.74 18.27.5 12 .5Z" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+
         </div>
 
         {/* Modal */}

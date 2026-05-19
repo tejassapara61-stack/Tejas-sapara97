@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
-import { Calendar, Github, Linkedin, Mail, MapPin, Twitter } from "lucide-react";
+import { Calendar, Github, Linkedin, Mail, MapPin, Twitter, Phone } from "lucide-react";
 
 const socialLinks = [
   {
@@ -55,6 +55,21 @@ const ContactPage = () => {
                       className="text-slate-600 transition hover:text-blue-500 dark:text-slate-400"
                     >
                       tejassapara61@gmail.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="rounded-lg bg-green-100 p-3 text-green-600 dark:bg-green-900/30 dark:text-green-400">
+                    <Phone className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-slate-900 dark:text-text-main">Phone</p>
+                    <a
+                      href="tel:+9170166611246"
+                      className="text-slate-600 transition hover:text-blue-500 dark:text-slate-400"
+                    >
+                      +91 70166611246
                     </a>
                   </div>
                 </div>
@@ -139,20 +154,18 @@ const ContactForm = () => {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    formData.append("_subject", "New consultation request");
-    formData.append("_captcha", "false");
-    formData.append("_template", "table");
+    formData.append("access_key", "2e31ec39-5775-4b19-832d-d3e7863d9e0f");
 
     try {
-      const payload = Object.fromEntries(formData.entries());
-      const response = await fetch("https://formsubmit.co/ajax/tejassapara61@gmail.com", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(payload)
+        body: formData
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to send message. Please try again.");
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.message || "Failed to send message. Please try again.");
       }
 
       form.reset();
@@ -179,7 +192,7 @@ const ContactForm = () => {
               id="name"
               type="text"
               name="name"
-              placeholder="John Doe"
+              placeholder="e.g. tejas"
               className="w-full rounded-lg border border-slate-200 bg-gray-50 p-3 outline-none transition focus:ring-2 focus:ring-blue-500 dark:border-borderline dark:bg-card"
               required
             />
@@ -192,7 +205,7 @@ const ContactForm = () => {
               id="email"
               type="email"
               name="email"
-              placeholder="john@company.com"
+              placeholder="corenextaa@company.com"
               className="w-full rounded-lg border border-slate-200 bg-gray-50 p-3 outline-none transition focus:ring-2 focus:ring-blue-500 dark:border-borderline dark:bg-card"
               required
             />
@@ -206,7 +219,7 @@ const ContactForm = () => {
           <select
             id="project-type"
             name="projectType"
-            className="w-full rounded-lg border border-slate-200 bg-gray-50 p-3 outline-none transition focus:ring-2 focus:ring-blue-500 dark:border-borderline dark:bg-card"
+            className="w-full rounded-lg border p-3 outline-none transition focus:ring-2 focus:ring-blue-500 bg-white dark:bg-[#111] text-gray-900 dark:text-white border-gray-300 dark:border-gray-700"
             defaultValue=""
             required
           >

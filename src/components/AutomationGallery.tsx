@@ -14,7 +14,7 @@ const workflows: WorkflowItem[] = [
     description: "Multi-agent SaaS architecture strictly evaluating candidate bios against job roles using Groq LLaMA and Airtable.",
     tags: ["n8n", "Groq LLaMA", "Apify", "Airtable"],
     accentColor: "#A855F7",
-    imagePath: "/images/corenexa-ss.png",
+    imagePath: "/images/design-ui-ss.png",
     jsonPath: "/workflows/AI_Recruitment_Engine.json",
     nodeCount: "45+",
     metrics: [
@@ -29,7 +29,7 @@ const workflows: WorkflowItem[] = [
     description: "Voice AI agent that calls leads, evaluates responses, scores them out of 100, and generates an HTML/PDF report.",
     tags: ["n8n", "Vapi Voice AI", "Javascript", "Airtable"],
     accentColor: "#3B82F6",
-    imagePath: "/images/outbound-lead-ss.png",
+    imagePath: "/images/gmaps-lead-ss.png",
     jsonPath: "/workflows/Outbound_Lead_Qualifier.json",
     nodeCount: "38+",
     metrics: [
@@ -44,7 +44,7 @@ const workflows: WorkflowItem[] = [
     description: "RAG-powered bot handling 8 university departments with memory, VIP ticketing, and HTML email automation.",
     tags: ["n8n", "Gemini", "Google Sheets", "Gmail"],
     accentColor: "#10B981",
-    imagePath: "/images/noblebot-ss.png",
+    imagePath: "/images/corenexa-ss.png",
     jsonPath: "/workflows/noblebot.json",
     nodeCount: "52+",
     metrics: [
@@ -59,7 +59,7 @@ const workflows: WorkflowItem[] = [
     description: "Master agent routing tasks to sub-agents for Google Drive management, calendar booking, and auto-posting on X/Instagram.",
     tags: ["n8n", "LangChain Agents", "Telegram", "OpenAI"],
     accentColor: "#EC4899",
-    imagePath: "/images/media-agent-ss.png",
+    imagePath: "/images/outbound-lead-ss.png",
     jsonPath: "/workflows/Ultimate_Media_Agent.json",
     nodeCount: "60+",
     metrics: [
@@ -74,7 +74,7 @@ const workflows: WorkflowItem[] = [
     description: "Fetches Apollo/ZoomInfo leads, scores them via GPT-4, updates HubSpot, and alerts sales teams on Slack.",
     tags: ["n8n", "Apify", "HubSpot", "Slack"],
     accentColor: "#06B6D4",
-    imagePath: "/images/b2b-scoring-ss.png",
+    imagePath: "/images/payroll-ss.png",
     jsonPath: "/workflows/AI_B2B_Lead_Scoring.json",
     nodeCount: "35+",
     metrics: [
@@ -89,7 +89,7 @@ const workflows: WorkflowItem[] = [
     description: "Scrapes Google Maps API for B2B leads with built-in exponential backoff to bypass API rate limits.",
     tags: ["n8n", "Google Maps API", "Google Sheets"],
     accentColor: "#3B82F6",
-    imagePath: "/images/gmaps-lead-ss.png",
+    imagePath: "/images/noblebot-ss.png",
     jsonPath: "/workflows/Generate_leads_Google_Maps.json",
     nodeCount: "28+",
     metrics: [
@@ -104,7 +104,7 @@ const workflows: WorkflowItem[] = [
     description: "Calculates base salary, tax, and unpaid leaves, adds AI remarks, and generates a downloadable PDF payslip.",
     tags: ["n8n", "OpenAI", "HTML-to-PDF", "Airtable"],
     accentColor: "#A855F7",
-    imagePath: "/images/payroll-ss.png",
+    imagePath: "/images/media-agent-ss.png",
     jsonPath: "/workflows/AI_Payroll_Processing.json",
     nodeCount: "22+",
     metrics: [
@@ -119,7 +119,7 @@ const workflows: WorkflowItem[] = [
     description: "Integrates Google Stitch MCP via Telegram to autonomously generate screens, UI layouts, and convert MD to HTML.",
     tags: ["n8n", "Google Stitch MCP", "Gemini"],
     accentColor: "#10B981",
-    imagePath: "/images/design-ui-ss.png",
+    imagePath: "/images/b2b-scoring-ss.png",
     jsonPath: "/workflows/Design_UI_projects.json",
     nodeCount: "30+",
     metrics: [

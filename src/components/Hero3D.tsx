@@ -3,7 +3,7 @@ import { motion, Variants } from "framer-motion";
 import { ArrowRight, Zap, Bot, Brain } from "lucide-react";
 
 const orbit1 = [
-  { name: "OpenAI", logo: "https://api.iconify.design/simple-icons/openai.svg", angle: 0, invertInDark: true },
+  { name: "OpenAI", logo: "https://api.iconify.design/simple-icons/openai.svg?color=%236b7280", angle: 0 },
   { name: "Anthropic", logo: "https://api.iconify.design/simple-icons/anthropic.svg?color=%23D4A574", angle: 72 },
   { name: "OpenRouter", logo: "https://api.iconify.design/simple-icons/openrouter.svg?color=%236366F1", angle: 216 },
   { name: "OpenClaw", logo: "https://api.iconify.design/lucide/bot.svg?color=%23A855F7", angle: 288 },
@@ -18,12 +18,11 @@ const orbit2 = [
 
 const orbit3 = [
   { name: "n8n", logo: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/n8n-color.svg", angle: 0 },
-  { name: "Make.com", logo: "https://api.iconify.design/simple-icons:make.svg?color=%236C4AB6", angle: 51.4 },
-  { name: "Claude Code", logo: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claude-color.svg", angle: 102.8 },
-  { name: "HuggingFace", logo: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/huggingface-color.svg", angle: 154.2 },
-  { name: "Replicate", logo: "https://api.iconify.design/simple-icons:replicate.svg?color=%233B82F6", angle: 205.7 },
-  { name: "Antigravity", logo: "https://api.iconify.design/lucide:rocket.svg?color=%2306B6D4", angle: 257.1 },
-  { name: "Cursor", logo: "https://api.iconify.design/simple-icons/cursor.svg", angle: 308.5, invertInDark: true },
+  { name: "Make.com", logo: "https://api.iconify.design/simple-icons:make.svg?color=%236C4AB6", angle: 60 },
+  { name: "Claude Code", logo: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claude-color.svg", angle: 120 },
+  { name: "HuggingFace", logo: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/huggingface-color.svg", angle: 180 },
+  { name: "Replicate", logo: "https://api.iconify.design/simple-icons:replicate.svg?color=%233B82F6", angle: 240 },
+  { name: "Antigravity", logo: "https://api.iconify.design/lucide:rocket.svg?color=%2306B6D4", angle: 300 },
 ];
 
 const stats = [
@@ -58,10 +57,16 @@ function orbitItems(
     const yPct = Math.sin(rad) * radiusPercent;
     return (
       <div key={item.name} className="orbit-item" style={{ position: "absolute", left: `${50 + xPct}%`, top: `${50 + yPct}%`, transform: "translate(-50%,-50%)" }}>
-        <div className="orbit-item-inner">
-          <img src={item.logo} alt={item.name} className={`w-7 h-7 md:w-9 md:h-9 object-contain drop-shadow-[0_0_8px_rgba(var(--color-accent),0.4)] ${item.invertInDark ? 'dark:invert' : ''} opacity-80 hover:opacity-100 transition-opacity duration-300`} loading="eager" />
+        <motion.div 
+          className="orbit-item-inner"
+          drag
+          dragElastic={0.2}
+          dragTransition={{ bounceStiffness: 600, bounceDamping: 10 }}
+          whileDrag={{ scale: 1.2, cursor: "grabbing" }}
+        >
+          <img src={item.logo} alt={item.name} className={`w-7 h-7 md:w-9 md:h-9 object-contain drop-shadow-[0_0_8px_rgba(var(--color-accent),0.4)] ${item.invertInDark ? 'dark:invert' : ''} opacity-80 hover:opacity-100 transition-opacity duration-300 pointer-events-none`} loading="eager" />
           <span className="orbit-item-label">{item.name}</span>
-        </div>
+        </motion.div>
       </div>
     );
   });

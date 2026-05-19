@@ -41,6 +41,10 @@ const About = () => {
             </motion.p>
 
             <motion.p variants={itemV} className="text-gray-600 dark:text-gray-300 leading-relaxed">
+              My journey into AI didn't start with theory—it started with a need to automate my own tedious tasks. That curiosity quickly turned into a full-blown obsession with multi-agent systems and n8n workflows. Based in Gujarat, I build AI architectures because I believe humans should do creative work, not robotic tasks. When I'm not vibe-coding or orchestrating LLMs, I'm usually pushing the limits of what autonomous agents can achieve.
+            </motion.p>
+
+            <motion.p variants={itemV} className="text-gray-600 dark:text-gray-300 leading-relaxed">
               My approach: bridge the gap between raw AI capabilities and real business outcomes. Whether it's orchestrating autonomous agents for recruitment (CoreNexa), building desktop AI orchestrators (MAHI AI), or leading teams at national hackathons — I engineer systems that work without human babysitting.
             </motion.p>
 
