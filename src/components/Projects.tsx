@@ -33,7 +33,7 @@ const projects: Project[] = [
       { icon: Database, label: "Data Layer", desc: "Supabase + RAG", color: "cyan" },
       { icon: Bot, label: "Auto Execute", desc: "Workflow Actions", color: "emerald" },
     ],
-    links: { demo: "/enterprise-multi-agent-demo.mp4" },
+    links: { demo: "https://youtu.be/9a-DgRYTRyk" },
     githubUrl: "https://github.com/tejassapara61-stack/corenexta",
   },
   {
@@ -245,9 +245,19 @@ const Projects = () => {
               </div>
               <div className="p-6">
                 <div className="w-full aspect-video rounded-xl bg-gray-50 dark:bg-card overflow-hidden border border-gray-200 dark:border-white/10 transition-shadow hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]">
-                  <video className="w-full h-full" controls playsInline preload="metadata" poster={demoPoster}>
-                    <source src={demoProject.links.demo} type="video/mp4" />
-                  </video>
+                  {demoProject.links?.demo?.includes("youtube.com") || demoProject.links?.demo?.includes("youtu.be") ? (
+                    <iframe
+                      className="w-full h-full"
+                      src={demoProject.links.demo.replace("watch?v=", "embed/").replace("youtu.be/", "youtube.com/embed/")}
+                      title="YouTube video player"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  ) : (
+                    <video className="w-full h-full" controls playsInline preload="metadata" poster={demoPoster}>
+                      <source src={demoProject.links?.demo} type="video/mp4" />
+                    </video>
+                  )}
                 </div>
               </div>
             </div>
